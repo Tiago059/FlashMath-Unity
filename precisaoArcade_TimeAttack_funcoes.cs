@@ -54,6 +54,10 @@ public class precisaoArcade_TimeAttack_funcoes : MonoBehaviour {
 		this.exp = new ExpressaoBasica(Jogador.getExpressoes());
 		this.txtExpressao.text = this.exp.Expressao + " = ?";
 
+		// Zerando a caixinha dos pontos
+		this.txtPontuacao.text = "0";
+
+
 	}
 
 	// Funções privadas
@@ -143,7 +147,7 @@ public class precisaoArcade_TimeAttack_funcoes : MonoBehaviour {
 		this.gameLoaded = Jogador.getJogoAtual(); */
 
 		// Enquanto não estivermos no estado de Game Over, podemos jogar!
-		while (!this.gameOver) {
+		if (this.gameOver == false) {
 			
 			// Testando se o tempo do jogador acabou, o que acarreta perda de vida também, fazendo a mesma coisa lá em cima
 			if (!TimeHandler.isLigado ()) {
