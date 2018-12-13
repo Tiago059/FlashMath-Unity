@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using AssemblyCSharp;
 
 public class menuGameMode : MonoBehaviour {
 
@@ -18,6 +19,8 @@ public class menuGameMode : MonoBehaviour {
 	void Start () {
 
 		this.numOption = 0; 
+		//print("deletou?");
+		//PlayerPrefs.DeleteKey("highscores"); 
 	}
 	
 	public void clickBtnLeft(){

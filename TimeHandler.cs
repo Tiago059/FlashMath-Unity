@@ -60,10 +60,10 @@ public class TimeHandler : MonoBehaviour {
 	}
 	public static bool isLigado(){ return TimeHandler.ligado; }
 	public static int getTimer(){ return TimeHandler.tempoTexto; }
-	public static void turnOffTimer() { TimeHandler.ligado = false; }
+	public static void turnOnTimer() { TimeHandler.ligado = true; }
 	public static void resetTimer(){ 
 		TimeHandler.timer = TimeHandler.timer_backup; 
-		TimeHandler.ligado = true;
+		TimeHandler.turnOnTimer ();
 	}
 		
 }

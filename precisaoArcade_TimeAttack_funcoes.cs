@@ -26,6 +26,7 @@ public class precisaoArcade_TimeAttack_funcoes : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+		print ("entrou no start");
 		// Bom, começamos o jogo, então nada de game over ainda né?
 		this.gameOver = false; 
 
@@ -40,7 +41,6 @@ public class precisaoArcade_TimeAttack_funcoes : MonoBehaviour {
 			Jogador.setVidas (3);
 			// Setando o tempo
 			TimeHandler.setTimer(15); 
-
 		}
 		if (Jogador.getJogoAtual() == "precisaoTimeAttack") {
 			this.life2.SetActive (false);
@@ -55,8 +55,8 @@ public class precisaoArcade_TimeAttack_funcoes : MonoBehaviour {
 		this.txtExpressao.text = this.exp.Expressao + " = ?";
 
 		// Zerando a caixinha dos pontos
-		this.txtPontuacao.text = "0";
-
+		this.txtPontuacao.text = Jogador.getPontuacao().ToString();
+		print("entrou aqui");
 
 	}
 
@@ -81,10 +81,6 @@ public class precisaoArcade_TimeAttack_funcoes : MonoBehaviour {
 		this.gameOver = true;
 		// Carrega a cena do Game Over
 		SceneManager.LoadScene("gameOver_precisaoArcadeTimeAttack");
-		/*
-		this.life1.SetActive(false);
-		TimeHandler.turnOffTimer ();
-		this.txtExpressao.text = "";*/
 	}
 		
 	// Funções públicas
@@ -123,8 +119,7 @@ public class precisaoArcade_TimeAttack_funcoes : MonoBehaviour {
 		}
 		// Mas nem tudo são flores... 
 		else {
-			// Tirando a vida do jogador vacilão por ele ter errado
-			Jogador.tirarVidas();
+			Jogador.tirarVidas(); // Tirando a vida do jogador vacilão por ele ter errado
 			Handheld.Vibrate(); // Dá uma vibradinha gostosa ui, só pra avisar que o jogador perdeu uma vida
 			shake(); // Se permitido, faz a tela balançar também
 		}

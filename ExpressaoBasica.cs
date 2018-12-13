@@ -38,29 +38,89 @@ namespace AssemblyCSharp {
 			switch(Jogador.getJogoAtual()){
 			case "precisaoArcade":
 				if (qtdExpressoes < 21) {
-					// Dificuldade 1: Números de 0 a 10, com 2 operações: somar e subtrair
+					// Dificuldade 1 - Muito fácil: Números de 0 a 10, com 2 operações: somar e subtrair
 					dificuldade [0] = 0;
 					dificuldade [1] = 10;
 					dificuldade [2] = 2;
 				} else if (qtdExpressoes >= 21 && qtdExpressoes < 36) {
-					// Dificuldade 2: Números de -15 a 15, com 2 operações: somar e subtrair
+					// Dificuldade 2 - Fácil: Números de -15 a 15, com 2 operações: somar e subtrair
 					dificuldade [0] = -15;
 					dificuldade [1] = 15;
 					dificuldade [2] = 2;
+				} else if (qtdExpressoes >= 36 && qtdExpressoes < 51) {
+					// Dificuldade 3 - Um pouco fácil: Números de -25 a 25, com 2 operações: somar e subtrair
+					dificuldade [0] = -25;
+					dificuldade [1] = 25;
+					dificuldade [2] = 2;
+				} else if (qtdExpressoes >= 51 && qtdExpressoes < 59) {
+					// Dificuldade 4 - Médio: Números de 0 a 10, com as 4 operações básicas (+, -, *, /)
+					dificuldade [0] = 0;
+					dificuldade [1] = 10;
+					dificuldade [2] = 4;
+				} else if (qtdExpressoes >= 59 && qtdExpressoes < 69) {
+					// Dificuldade 5 - Um pouco díficil: Números de -10 a 10, com as 4 operações
+					dificuldade [0] = -10;
+					dificuldade [1] = 10;
+					dificuldade [2] = 4;
+				} else if (qtdExpressoes >= 69 && qtdExpressoes < 75) {
+					// Dificuldade 6 - Difícil: Números de -15 a 15, com as 4 operações
+					dificuldade [0] = -15;
+					dificuldade [1] = 15;
+					dificuldade [2] = 4;
+				} else if (qtdExpressoes >= 75 && qtdExpressoes < 100) {
+					// Dificuldade 6 - Muito Difícil: Números de -25 a 25, com as 4 operações
+					dificuldade [0] = -25;
+					dificuldade [1] = 25;
+					dificuldade [2] = 4;
+				} else if (qtdExpressoes >= 100) {
+					// Dificuldade 7 - Insanamente Difícil: Números de -100 a 100, com as 4 operações
+					dificuldade [0] = -100;
+					dificuldade [1] = 100;
+					dificuldade [2] = 4;
 				}
 				break;
 
 			case "precisaoTimeAttack":
-				if (qtdExpressoes < 15) {
-					// Dificuldade 1: Números de 0 a 10, com 2 operações: somar e subtrair
-					dificuldade [0] = -5;
+				if (qtdExpressoes < 13) {
+					// Dificuldade 1 - Muito fácil: Números de 0 a 5, com 2 operações: somar e subtrair
+					dificuldade [0] = 0;
 					dificuldade [1] = 5;
 					dificuldade [2] = 2;
-				} else if (qtdExpressoes >= 15 && qtdExpressoes < 41) {
-					// Dificuldade 2: Números de -15 a 15, com 2 operações: somar e subtrair
+				} else if (qtdExpressoes >= 13 && qtdExpressoes < 25) {
+					// Dificuldade 2 - Fácil: Números de 0 a 10, com 2 operações: somar e subtrair
+					dificuldade [0] = 0;
+					dificuldade [1] = 10;
+					dificuldade [2] = 2;
+				} else if (qtdExpressoes >= 25 && qtdExpressoes < 40) {
+					// Dificuldade 3 - Um pouco fácil: Números de -10 a 10, com 2 operações: somar e subtrair
+					dificuldade [0] = -10;
+					dificuldade [1] = 10;
+					dificuldade [2] = 2;
+				} else if (qtdExpressoes >= 40 && qtdExpressoes < 62) {
+					// Dificuldade 4 - Médio: Números de -5 a 5, com as 4 operações básicas (+, -, *, /)
+					dificuldade [0] = -5;
+					dificuldade [1] = 5;
+					dificuldade [2] = 4;
+				} else if (qtdExpressoes >= 62 && qtdExpressoes < 77) {
+					// Dificuldade 5 - Um pouco díficil: Números de -10 a 10, com as 4 operações
+					dificuldade [0] = -10;
+					dificuldade [1] = 10;
+					dificuldade [2] = 4;
+				} else if (qtdExpressoes >= 77 && qtdExpressoes < 87) {
+					// Dificuldade 6 - Difícil: Números de -15 a 15, com as 4 operações
 					dificuldade [0] = -15;
 					dificuldade [1] = 15;
-					dificuldade [2] = 2;
+					dificuldade [2] = 4;
+				} else if (qtdExpressoes >= 87 && qtdExpressoes < 100) {
+					// Dificuldade 6 - Muito Difícil: Números de -25 a 25, com as 4 operações
+					dificuldade [0] = -25;
+					dificuldade [1] = 25;
+					dificuldade [2] = 4;
+				} else if (qtdExpressoes >= 100) {
+					// Dificuldade 7 - Insanamente Difícil: Números de -100 a 100, com as 4 operações
+					dificuldade [0] = -100;
+					dificuldade [1] = 100;
+					dificuldade [2] = 4;
 				}
 				break;
 			}
