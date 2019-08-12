@@ -14,29 +14,26 @@ public class menuGameMode : MonoBehaviour {
 
 	private int numOption; // Numero da opção. Representa qual opção está sendo vista no momento
 
-
 	// Use this for initialization
 	void Start () {
 
-		this.numOption = 0; 
-		//print("deletou?");
-		//PlayerPrefs.DeleteKey("highscores"); 
+		BackgroudMusicManager.Instance.play();
+
+		this.numOption = 0;  
+	}
+
+	public void clickBtnExit(){
+		AnimationManager.Instance.startAnimationAndLoadScene("FadeIn", "menuPrincipal");
 	}
 	
 	public void clickBtnLeft(){
-		if (this.numOption == 0) {
-			this.numOption = this.imagesOptions.Length - 1;
-		} else {
-			this.numOption--;
-		}
+		if (this.numOption == 0) { this.numOption = this.imagesOptions.Length - 1; } 
+		else { this.numOption--; }
 	}
 
 	public void clickBtnRight(){
-		if (this.numOption == this.imagesOptions.Length - 1) {
-			this.numOption = 0;
-		} else {
-			this.numOption++;
-		}
+		if (this.numOption == this.imagesOptions.Length - 1) { this.numOption = 0; } 
+		else { this.numOption++; }
 	}
 		
 	public void clickSelect(){
@@ -46,10 +43,11 @@ public class menuGameMode : MonoBehaviour {
 		switch (this.numOption) {
 		case 0: scene = "menuPrecisao"; break;
 		case 1: scene = "precisaoArcade"; break;
-		case 2: scene = "precisaoArcade"; break;
+		case 2: scene = "precisaoZen10"; break;
 		}
 
-		SceneManager.LoadScene (scene);
+		AnimationManager.Instance.startAnimationAndLoadScene("FadeIn", scene);
+		//SceneManager.LoadScene (scene);
 	}
 
 	// Update is called once per frame

@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
-using AssemblyCSharp;
 
 namespace AssemblyCSharp {
 	
@@ -14,25 +11,23 @@ namespace AssemblyCSharp {
 
 		// Métodos privados 
 		private int gerarNumeroAleatorio(int intervalo1, int intervalo2){
-
-			// Uso especificamente System.Random pois quero usar o Random o System, pois o Unity também tem um objeto Random
-			System.Random aleatorio = new System.Random (Guid.NewGuid().GetHashCode()); // Muda o seed a cada execução, para não repetir números aleatórios
-				return aleatorio.Next (intervalo1, intervalo2 + 1);
+			Random aleatorio = new Random (Guid.NewGuid().GetHashCode()); // Muda o seed a cada execução, para não repetir números aleatórios
+			return aleatorio.Next (intervalo1, intervalo2 + 1);
 		}
 
 		private string gerarOperador(int numOperador){
-			if (numOperador == 1)
-				return " + ";
-			else if (numOperador == 2)
-				return " - ";
-
+			switch (numOperador){
+				case 1: return " + "; 
+				case 2: return " - "; 
+				case 3: return " x "; 
+				case 4: return " / "; 
+			}
 			return "";
-
 		}
 
 		private int[] gerarDificuldade(int qtdExpressoes){
-
-			int[] dificuldade = new int[3]; // Um vetor de 3 posições: Intervalo1 e Intervalo2 dos números, e o número do operador
+			// Um vetor de 3 posições: Intervalo1 e Intervalo2 dos números, e o número do operador
+			int[] dificuldade = new int[3]; 
 
 			// Dependendo do modo de Jogo, a dificuldade os números são gerados de uma maneira um pouco diferente
 			switch(Jogador.getJogoAtual()){
@@ -40,8 +35,8 @@ namespace AssemblyCSharp {
 				if (qtdExpressoes < 21) {
 					// Dificuldade 1 - Muito fácil: Números de 0 a 10, com 2 operações: somar e subtrair
 					dificuldade [0] = 0;
-					dificuldade [1] = 10;
-					dificuldade [2] = 2;
+					dificuldade [1] = 10; 
+					dificuldade [2] = 2; 
 				} else if (qtdExpressoes >= 21 && qtdExpressoes < 36) {
 					// Dificuldade 2 - Fácil: Números de -15 a 15, com 2 operações: somar e subtrair
 					dificuldade [0] = -15;
@@ -68,18 +63,17 @@ namespace AssemblyCSharp {
 					dificuldade [1] = 15;
 					dificuldade [2] = 4;
 				} else if (qtdExpressoes >= 75 && qtdExpressoes < 100) {
-					// Dificuldade 6 - Muito Difícil: Números de -25 a 25, com as 4 operações
+					// Dificuldade 7 - Muito Difícil: Números de -25 a 25, com as 4 operações
 					dificuldade [0] = -25;
 					dificuldade [1] = 25;
 					dificuldade [2] = 4;
 				} else if (qtdExpressoes >= 100) {
-					// Dificuldade 7 - Insanamente Difícil: Números de -100 a 100, com as 4 operações
+					// Dificuldade 8 - Insanamente Difícil: Números de -100 a 100, com as 4 operações
 					dificuldade [0] = -100;
 					dificuldade [1] = 100;
 					dificuldade [2] = 4;
 				}
 				break;
-
 			case "precisaoTimeAttack":
 				if (qtdExpressoes < 13) {
 					// Dificuldade 1 - Muito fácil: Números de 0 a 5, com 2 operações: somar e subtrair
@@ -123,68 +117,141 @@ namespace AssemblyCSharp {
 					dificuldade [2] = 4;
 				}
 				break;
+			case "PrecisaoBasket10":
+				// Se tratando deste modo, todas as expressões só serão de somar :)
+				if (qtdExpressoes < 12) {
+					// Dificuldade 1 - Very Easy: Números de 0 a 5
+					dificuldade [0] = 0;
+					dificuldade [1] = 5; 
+					dificuldade [2] = 1; 
+				} else if (qtdExpressoes >= 12 && qtdExpressoes < 25) {
+					// Dificuldade 2 - Easy: Números de -7 a 7
+					dificuldade [0] = -7;
+					dificuldade [1] = 7;
+					dificuldade [2] = 1;
+				} else if (qtdExpressoes >= 25 && qtdExpressoes < 41) {
+					// Dificuldade 3 - Somewhat Easy: Números de -15 a 15
+					dificuldade [0] = -15;
+					dificuldade [1] = 15;
+					dificuldade [2] = 1;
+				} else if (qtdExpressoes >= 41 && qtdExpressoes < 61) {
+					// Dificuldade 4 - Medium: Números de 0 a 30
+					dificuldade [0] = 0;
+					dificuldade [1] = 30;
+					dificuldade [2] = 1;
+				} else if (qtdExpressoes >= 61 && qtdExpressoes < 79) {
+					// Dificuldade 5 - Somewhat Hard: Números de -30 a 30
+					dificuldade [0] = -30;
+					dificuldade [1] = 30;
+					dificuldade [2] = 1;
+				} else if (qtdExpressoes >= 79 && qtdExpressoes < 89) {
+					// Dificuldade 6 - Hard: Números de -60 a 60
+					dificuldade [0] = -60;
+					dificuldade [1] = 60;
+					dificuldade [2] = 1;
+				} else if (qtdExpressoes >= 89 && qtdExpressoes < 100) {
+					// Dificuldade 7 - Very Hard: Números de 0 a 100
+					dificuldade [0] = 0;
+					dificuldade [1] = 100;
+					dificuldade [2] = 1;
+				} else if (qtdExpressoes >= 100) {
+					// Dificuldade 8 - Insanaly Hard: Números de -100 a 100
+					dificuldade [0] = -100;
+					dificuldade [1] = 100;
+					dificuldade [2] = 1;
+				}
+				break;
 			}
-
 			return dificuldade;
-			
 		}
 
-		private string gerarResultado(int num1, int num2, int operador){
+		private void gerarResultado(int operador){
+
+			int num1 = gerarNumeroAleatorio(this.dificuldade[0], this.dificuldade[1]);
+			int num2 = gerarNumeroAleatorio(this.dificuldade[0], this.dificuldade[1]);
+
 			int resultado = 0;
-	
-			if (operador == 1) {
-				resultado = num1 + num2;
-			} else if (operador == 2) {
-				resultado = num1 - num2;
+
+			switch(operador){
+
+				// Retornamos a soma dos dois números
+				case 1: resultado = num1 + num2;  break;
+				case 2: resultado = num1 - num2; break;
+				/* Tratando da multiplicação, prefiro não colocar uma faixa muito grande de números, já que
+                 * tornaria o cálculo próximo do impossível a ser feito em 15 segundos. Então, vou definir uma
+                 * faixa específica de números a serem gerados e mandar o num2 estar nesta faixa antes de 
+                 * prosseguir com a multiplicação.
+                 * Faixa para o PrecisaoArcade - Average: -10 a 10
+                 * Faixa para o PrecisaoArcade - Challenger: -25 a 25
+				*/
+				case 3:
+ 
+					while ( num2 < -10 || num2 > 10 ){ 
+						num2 = gerarNumeroAleatorio(this.dificuldade[0], this.dificuldade[1]); 
+					}
+					resultado = num1 * num2;  
+					break;
+				/* Tratando da divisão, agora preciso garantir que a divisão sempre seja um 
+				   resultado inteiro, senão, a função tem que se chamada recursivamente até que o
+				   resultado gerado seja um número inteiro.  
+				*/
+				case 4:
+					// Se o resto da divisão dos números for diferente de 0, com certeza o número não é inteiro
+					// E também claro, divisões por zero não existem
+					while (num2 == 0 || num1 % num2 != 0){
+						num1 = gerarNumeroAleatorio(this.dificuldade[0], this.dificuldade[1]);
+						num2 = gerarNumeroAleatorio(this.dificuldade[0], this.dificuldade[1]);
+					}
+					resultado = num1 / num2; 
+					break;
 			}
-				
-			return resultado.ToString();
+
+			// Convertendo os números para string, se forem negativos, coloco parênteses tbm
+			this.numero1 = num1.ToString();
+			this.numero2 = num2.ToString();
+			if (num1 < 0) { this.numero1 = "(" + this.numero1 + ")"; }
+			if (num2 < 0) { this.numero2 = "(" + this.numero2 + ")"; }
+
+			this.resultado = resultado.ToString();
+
 		}
 
 		// Construtor
 		public ExpressaoBasica (int qtdExpressoes) {
 			// Gerando a dificuldade, através da quantidade de expressões feitas pelo jogador
 			this.dificuldade = gerarDificuldade (qtdExpressoes);
-			// Gerando os números aleatórios, junto com o operador, inicialmente na forma inteira
-			int num1 = gerarNumeroAleatorio(this.dificuldade[0], this.dificuldade[1]);
-			int num2 = gerarNumeroAleatorio(this.dificuldade[0], this.dificuldade[1]);
-			int op = gerarNumeroAleatorio(1, this.dificuldade[2]);
-			// Gerando o resultado, já na forma de string
-			this.resultado = gerarResultado (num1, num2, op); 
-			// Convertendo os números para string, se forem negativos colocando parênteses
-			this.numero1 = num1.ToString();
-			this.numero2 = num2.ToString();
 
-			if (num1 < 0)
-				this.numero1 = "(" + this.numero1 + ")";
-			if (num2 < 0)
-				this.numero2 = "(" + this.numero2 + ")";
-			
+			// Gerando os números aleatórios, junto com o operador, inicialmente na forma inteira
+			int op = gerarNumeroAleatorio(1, this.dificuldade[2]);
+
+			// Gerando o resultado, já na forma de string
+			gerarResultado(op); 
+
 			// Gerando a string do operador
 			this.operador = gerarOperador(op);
 
-			/*print("Numero1: " + this.numero1);
-			print("Numero2: " + this.numero2);
-			print("OP: " + op);
-			print ("resposta: " + this.resultado);*/
-
+			// Gerando a string com a expressão COMPLETAÇA
 			this.expressao = this.numero1 + " " + this.operador + " " + this.numero2;
 
 		}
 
 		// Getters (sim, nada de Setters)
-		public string Expressao { 
-			get { return this.expressao; }
-		}
+		public string Expressao { get { return this.expressao; } }
+		public int Numero1 { get { return Convert.ToInt32(this.numero1); } }
+		public int Numero2 { get { return Convert.ToInt32(this.numero2); } }
+		public string Resultado { get { return this.resultado; } }
 
-		public string Resultado {
-			get { return this.resultado; }
-		}
+		// Métodos públicos (só tem um...)
+		public bool checarResposta(string resposta){ return this.resultado.Equals (resposta); }
 
-		// Métodos públicos
-		public bool checarResposta(string resposta){
-			return this.resultado.Equals (resposta);
+		public static int[] gerarExpressaoDesejada(int qtdExpressoes, int numeroDesejado){ 
+			ExpressaoBasica exp = new ExpressaoBasica(qtdExpressoes);
+			while (Convert.ToInt32(exp.Resultado) != numeroDesejado){ 
+				exp = new ExpressaoBasica(qtdExpressoes); 
+			}
+			int[] numeros = {exp.Numero1, exp.Numero2};
+
+			return numeros;
 		}
 	}
 }
-

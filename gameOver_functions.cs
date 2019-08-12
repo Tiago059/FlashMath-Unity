@@ -17,6 +17,9 @@ public class gameOver_functions : MonoBehaviour {
 	public Text novaMelhorPontuacao;
 	public Text novoMelhorRanking;
 
+	private bool blinkMelhorPontuacao = false;
+	private bool blinkMelhorRanking = false;
+
 	// Use this for initialization
 	void Start () {
 
@@ -39,6 +42,14 @@ public class gameOver_functions : MonoBehaviour {
 		// Exibe a mensagem de melhor pontuação caso o Jogador tenha feito uma melhor pontuação
 		if (Jogador.getPontuacao () > Jogador.getHighscores().melhorPontuacao()){
 			this.novaMelhorPontuacao.text = "New Best Score!";
+			this.blinkMelhorPontuacao = true;
+
+		}
+
+		// Aqui tentamos ver se o jogador conseguiu fazer um novo ranking, exibindo a mensagem se sim
+		if (Jogador.getHighscores().adicionarRanking(Jogador.gerarNumeroRanking())){
+			this.novoMelhorRanking.text = "New Best Rank!";
+			this.blinkMelhorRanking = true;
 		}
 
 		// Tentando adicionar a nova pontuação do jogador como um possível novo recorde
@@ -47,11 +58,6 @@ public class gameOver_functions : MonoBehaviour {
 		// Exibindo qual é a melhor pontuação do jogador, naquele modo
 		this.txtMelhorPontuacao.text = Jogador.getHighscores().melhorPontuacao().ToString();
 
-		// Aqui tentamos ver se o jogador conseguiu fazer um novo ranking, exibindo a mensagem se sim
-		if (Jogador.getHighscores().adicionarRanking(Jogador.gerarNumeroRanking())){
-			this.novoMelhorRanking.text = "New Best Rank!";
-		}
-	
 		// Mostrando o ranking que o Jogador ficou no jogo que ele jogou naquele momento
 		this.txtRanking.text = Jogador.gerarRanking(Jogador.gerarNumeroRanking());
 
@@ -67,12 +73,25 @@ public class gameOver_functions : MonoBehaviour {
 
 		// Reseta os dados do jogador
 		Jogador.resetarDadosJogador();
+	}
 
-		// Religa o cronômetro para ser usado novamente, para ser usado por outro modo (ou o mesmo)
-		TimeHandler.turnOnTimer ();
+	public void goToSelectMode(){
+		AnimationManager.Instance.startAnimationAndLoadScene("FadeIn", "menuPrecisao");
 	}
 
 	// Carrega o jogo que o player estava jogando antes
-	public void reiniciarJogo(){ SceneManager.LoadScene(Jogador.getCenaAtual()); }
+	public void reiniciarJogo(){ 
+		LoadingSceneManager.startLoadingScene(true);
+		LoadingSceneManager.setSceneToLoadAfterLoading(Jogador.getCenaAtual());
+		SceneManager.LoadScene("loadingScreen");
+	}
 
+	void Update(){
+		if (this.blinkMelhorPontuacao) {
+			this.novaMelhorPontuacao.color = new Color(this.novaMelhorPontuacao.color.r, this.novaMelhorPontuacao.color.g, this.novaMelhorPontuacao.color.b, Mathf.PingPong(Time.time, 1));
+		}
+		if (this.blinkMelhorRanking) {
+			this.novoMelhorRanking.color = new Color(this.novoMelhorRanking.color.r, this.novoMelhorRanking.color.g, this.novoMelhorRanking.color.b, Mathf.PingPong(Time.time, 1));
+		}
+	}
 }

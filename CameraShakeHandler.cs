@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CameraShakeHandler : MonoBehaviour {
 
@@ -17,7 +15,6 @@ public class CameraShakeHandler : MonoBehaviour {
 
 	Vector3 initialPosition; // Posição inicial do Game Object
 
-	//void Awake() { if (transform == null) { transform = GetComponent(typeof(Transform)) as Transform; } }
 	void OnEnable() { initialPosition = this.camTransform.localPosition; }
 
 	void Update() {
@@ -25,8 +22,7 @@ public class CameraShakeHandler : MonoBehaviour {
 			camTransform.localPosition = initialPosition + Random.insideUnitSphere * shakeMagnitude;
 			CameraShakeHandler.shakeDuration -= Time.deltaTime * dampingSpeed;
 		}
-		else
-		{
+		else {
 			CameraShakeHandler.shakeDuration = 0f;
 			camTransform.localPosition = initialPosition;
 		}
@@ -34,5 +30,4 @@ public class CameraShakeHandler : MonoBehaviour {
 
 	// Use esta função para fazer a tela balançar
 	public static void TriggerShake(float duration){ CameraShakeHandler.shakeDuration = duration; }
-
 }
