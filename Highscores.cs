@@ -80,24 +80,32 @@ namespace AssemblyCSharp {
 		
 			// Adicionando os recordes baseado em cada uma das dificuldades e o ranking mais baixo
 			// **** Precisão-Arcade, 4 dificuldades **** //
-			this.highScorePrecisaoArcade.Add("Kids", zero);
-			this.highScorePrecisaoArcade.Add("Beginner", zero);
-			this.highScorePrecisaoArcade.Add("Experient", zero);
-			this.highScorePrecisaoArcade.Add("Challenger", zero);
-			for (int i = 0; i < 4; i++) { this.bestRanksPrecisaoArcade.Add(6); }
+			highScorePrecisaoArcade.Add("Kids", zero);
+			bestRanksPrecisaoArcade.Add("Kids", 6);
+			highScorePrecisaoArcade.Add("Beginner", zero);
+			bestRanksPrecisaoArcade.Add("Beginner", 6);
+			highScorePrecisaoArcade.Add("Experient", zero);
+			bestRanksPrecisaoArcade.Add("Experient", 6);
+			highScorePrecisaoArcade.Add("Challenger", zero);
+			bestRanksPrecisaoArcade.Add("Challenger", 6);
 			
 			// **** Precisão-TimeAttack, 4 dificuldades **** //
-			this.highScorePrecisaoTimeAttack.Add("Kids", zero);
-			this.highScorePrecisaoTimeAttack.Add("Beginner", zero);
-			this.highScorePrecisaoTimeAttack.Add("Experient", zero);
-			this.highScorePrecisaoTimeAttack.Add("Challenger", zero);
-			for (int i = 0; i < 4; i++) { this.bestRanksPrecisaoTimeAttack.Add(6); }
+			highScorePrecisaoTimeAttack.Add("Kids", zero);
+			bestRanksPrecisaoTimeAttack.Add("Kids", 6);
+			highScorePrecisaoTimeAttack.Add("Beginner", zero);
+			bestRanksPrecisaoTimeAttack.Add("Beginner", 6);
+			highScorePrecisaoTimeAttack.Add("Experient", zero);
+			bestRanksPrecisaoTimeAttack.Add("Experient", 6);
+			highScorePrecisaoTimeAttack.Add("Challenger", zero);
+			bestRanksPrecisaoTimeAttack.Add("Challenger", 6);
 			
 			// **** Precisão-Basket10, 3 dificuldades **** //
-			this.highScorePrecisaoBasket10.Add("Beginner", zero);
-			this.highScorePrecisaoBasket10.Add("Experient", zero);
-			this.highScorePrecisaoBasket10.Add("Challenger", zero);
-			for (int i = 0; i < 3; i++) { this.bestRanksPrecisaoBasket10.Add(6); }
+			highScorePrecisaoBasket10.Add("Beginner", zero);
+			bestRanksPrecisaoPrecisaoBasket10.Add("Beginner", 6);
+			highScorePrecisaoBasket10.Add("Experient", zero);
+			bestRanksPrecisaoPrecisaoBasket10.Add("Experient", 6);
+			highScorePrecisaoBasket10.Add("Challenger", zero);
+			bestRanksPrecisaoPrecisaoBasket10.Add("Challenger", 6);
 			
 			
 		}
