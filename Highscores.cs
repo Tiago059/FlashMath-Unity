@@ -30,27 +30,33 @@ namespace AssemblyCSharp {
 
 		/* Para adicionar novos recordes referentes a novos modos de jogo, onde estiver escrito
 		   "adicione aqui para novo recorde", crie uma variável de acordo com as já existentes. */
+		   
+		   /** As pontuações agora serão baseados na dificuldade, o que indica que para
+		   cada modo de jogo teremos 4 melhores tipos de recordes baseados nas 4 dificuldades do jogo.
+		   Lembrando que nem todos os modos terão 4 dificuldades. Para isso, usaremos um Dictionary
+		   quen funciona semelhante ao Map do Java. */
 
 		// Listas onde serão guardadas as melhores pontuações do jogado de cada modo.
 		// --> Adicione aqui para novo recorde <-- 
-		private List<int> highScorePrecisaoArcade;
-		private List<int> highScorePrecisaoTimeAttack;
-		private List<int> highScorePrecisaoBasket10;
+		private IDictionary<string, List<int>> highScorePrecisaoArcade;
+		private IDictionary<string, List<int>> highScorePrecisaoTimeAttack;
+		private IDictionary<string, List<int>> highScorePrecisaoBasket10;
 
-		// Strings que contém cada um dos melhores rankings de cada modo pelo jogador.
+		// Strings que contém cada um dos melhores rankings de cada modo pelo jogador. Uma 
+		// lista de int que guardará cada um das melhores pontuações baseada nas dificuldades
 		// --> Adicione aqui para novo recorde <-- 
-		private int bestRankPrecisaoArcade;
-		private int bestRankPrecisaoTimeAttack;
-		private int bestRankPrecisaoBasket10;
+		private List<int> bestRanksPrecisaoArcade;
+		private List<int> bestRanksPrecisaoTimeAttack;
+		private List<int> bestRanksPrecisaoBasket10;
 
 		// Número de recordes que serão armazenados. 
 		private const int numRecordes = 5;
 
 		public Highscores(){
 			
-			this.highScorePrecisaoArcade = new List<int> ();
-			this.highScorePrecisaoTimeAttack = new List<int> ();
-			this.highScorePrecisaoBasket10 = new List<int>();
+			this.highScorePrecisaoArcade = IDictionary<string, List<int>>();
+			this.highScorePrecisaoTimeAttack = IDictionary<string, List<int>>();
+			this.highScorePrecisaoBasket10 = IDictionary<string, List<int>>();
 			// --> Adicione aqui para novo recorde <-- 
 		
 		}
