@@ -53,7 +53,7 @@ namespace AssemblyCSharp {
 		
 			// --> Adicionando recordes para os novos modos de jogo, parte 2:
 			/* Simples, apenas inicialize todas variáveis criadas anteriormente. */
-			
+	
 			highScorePrecisaoArcade = new IDictionary<string, List<int>>();
 			highScorePrecisaoTimeAttack = new IDictionary<string, List<int>>();
 			highScorePrecisaoBasket10 = new IDictionary<string, List<int>>();
@@ -101,12 +101,11 @@ namespace AssemblyCSharp {
 			
 			// **** Precisão-Basket10, 3 dificuldades **** //
 			highScorePrecisaoBasket10.Add("Beginner", zero);
-			bestRanksPrecisaoPrecisaoBasket10.Add("Beginner", 6);
+			bestRanksPrecisaoBasket10.Add("Beginner", 6);
 			highScorePrecisaoBasket10.Add("Experient", zero);
-			bestRanksPrecisaoPrecisaoBasket10.Add("Experient", 6);
+			bestRanksPrecisaoBasket10.Add("Experient", 6);
 			highScorePrecisaoBasket10.Add("Challenger", zero);
-			bestRanksPrecisaoPrecisaoBasket10.Add("Challenger", 6);
-			
+			bestRanksPrecisaoBasket10.Add("Challenger", 6);
 			
 		}
 		
@@ -142,36 +141,37 @@ namespace AssemblyCSharp {
 				case "precisaoArcade": return highScorePrecisaoArcade[dificAtual].ElementAt(0);     
 				case "precisaoTimeAttack": return highScorePrecisaoTimeAttack[dificAtual].ElementAt(0);
 				case "PrecisaoBasket10": return highScorePrecisaoBasket10[dificAtual].ElementAt(0);
-				default: return null; 
+				default: return 0;
 			}
 		}
 		
 		// --> Adicionando recordes para os novos modos de jogo, parte 6:
-		/* Mais uma vez, apenas questão de retorno. Aqui retornamos */
+		/* Mais uma vez, apenas questão de retorno. Aqui retornamos o valor associado à chave da dificuldade
+		atual do jogador, que conterá seu melhor ranking naquele modo de jogo e dificuldade. */
 		public int melhorRanking(){
-			switch (Jogador.getJogoAtual()){
-				case "precisaoArcade": return this.bestRankPrecisaoArcade; 
-				case "precisaoTimeAttack": return this.bestRankPrecisaoTimeAttack;
-				case "PrecisaoBasket10": return this.bestRankPrecisaoBasket10;
-				// --> Adicione aqui para novo recorde <--
+			switch (jogoAtual){
+				case "precisaoArcade": return bestRanksPrecisaoArcade[dificAtual]; 
+				case "precisaoTimeAttack": return bestRanksPrecisaoTimeAttack[dificAtual];
+				case "PrecisaoBasket10": return bestRankPrecisaoBasket10[dificAtual];
+				default: return 0;
 			}
-
-			return 0;
 		}
 		
-
-		
-
+		// --> Adicionando recordes para os novos modos de jogo, parte 7 (final):
+		/* Para finalizar, acrescente seu modo de jogo para que a função consiga checar se o novo ranking é
+		maior que o atual. */
 		public bool adicionarRanking(int novoRanking){
-			switch (Jogador.getJogoAtual()){
-				case "precisaoArcade": 
-					if (novoRanking < this.bestRankPrecisaoArcade){ 
-						this.bestRankPrecisaoArcade = novoRanking;
+			switch (jogoAtual){
+				case "precisaoArcade": return novoRanking < 
+					saudacao = agora.Hour > 12 ? "Boa Tarde" : "Bom dia";
+					if (novoRanking < bestRanksPrecisaoArcade[dificAtual]){ 
+						bestRanksPrecisaoArcade[dificAtual] = novoRanking;
 						return true; 
-					} else { return false; }
+					} 
+					else { return false; }
 				case "precisaoTimeAttack":
-					if (novoRanking < this.bestRankPrecisaoTimeAttack){ 
-						this.bestRankPrecisaoTimeAttack = novoRanking;
+					if (novoRanking < bestRanksPrecisaoTimeAttack[dificAtual]){ 
+						bestRanksPrecisaoTimeAttack[dificAtual] = novoRanking;
 						return true; 
 					} else { return false; }
 				case "PrecisaoBasket10":
