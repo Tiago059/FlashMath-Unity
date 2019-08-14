@@ -30,79 +30,70 @@ namespace AssemblyCSharp {
 		
 		// --> Adicionando recordes para os novos modos de jogo, parte 1:
 		/* Crie um IDictionary<string, List<int>>, onde a chave é o nome da dificuldade mapeada para
-		uma lista dos recordes referentes àquela dificuldade. Crie também uma List<int> que guardará
-		os rankings referentes a cada dificuldade do modo. */
+		uma lista dos recordes referentes àquela dificuldade. Crie também um IDictionary<string, int> que guardará
+		o melhor ranking referentes a cada dificuldade do modo. */
 	
-		// Listas onde serão guardadas as melhores pontuações do jogado de cada modo
+		// Dicionários onde serão guardadas as melhores pontuações do jogado de cada modo
 		private IDictionary<string, List<int>> highScorePrecisaoArcade;
 		private IDictionary<string, List<int>> highScorePrecisaoTimeAttack;
 		private IDictionary<string, List<int>> highScorePrecisaoBasket10;
-
-		private List<int> bestRanksPrecisaoArcade;
-		private List<int> bestRanksPrecisaoTimeAttack;
-		private List<int> bestRanksPrecisaoBasket10;
+		
+		// Dicionários que associarão as dificuldades aos seus respectivos melhores rankings
+		private IDictionary<string, int> bestRanksPrecisaoArcade;
+		private IDictionary<string, int> bestRanksPrecisaoTimeAttack;
+		private IDictionary<string, int> bestRanksPrecisaoBasket10;
 
 		// Número máximo de recordes que serão armazenados. 
-		private const int numRecordes = 5;
+		private const int numMaxRecordes = 5;
+		
+		// Jogo e dificuldade atual do Jogador no momento da criação do objeto Highscores. 
+		private string jogoAtual, dificAtual;
 
 		public Highscores(){
 		
 			// --> Adicionando recordes para os novos modos de jogo, parte 2:
 			/* Simples, apenas inicialize todas variáveis criadas anteriormente. */
 			
-			this.highScorePrecisaoArcade = IDictionary<string, List<int>>();
-			this.highScorePrecisaoTimeAttack = IDictionary<string, List<int>>();
-			this.highScorePrecisaoBasket10 = IDictionary<string, List<int>>();
+			highScorePrecisaoArcade = new IDictionary<string, List<int>>();
+			highScorePrecisaoTimeAttack = new IDictionary<string, List<int>>();
+			highScorePrecisaoBasket10 = new IDictionary<string, List<int>>();
 			
-			this.bestRanksPrecisaoArcade = new List<int>();
-			this.bestRanksPrecisaoTimeAttack = new List<int>();
-			this.bestRanksPrecisaoBasket10 = new List<int>();
+			bestRanksPrecisaoArcade = new IDictionary<string, int>();
+			bestRanksPrecisaoTimeAttack = new IDictionary<string, int>();
+			bestRanksPrecisaoBasket10 = new IDictionary<string, int>();
+			
+			jogoAtual = Jogador.getJogoAtual();
+			dificAtual = Jogador.getDificuldadeAtual();
 
 		}
 
-		private List<int> ordenarRecordes (List<int> recordes) {
-			for (int i = 0; i < Highscores.numRecordes + 1; i++) {
-				for (int j = 0; j < Highscores.numRecordes + 1; j++) {
-					if (recordes[i] <= recordes[j]){
-						int temp = recordes[j];
-						recordes[i] = recordes[j];
-						recordes[j] = temp; 
-					}
-				}
-			}
-			recordes.RemoveAt(Highscores.numRecordes);
-			return recordes;
-		}
-		
 		public void setValoresIniciais(){
 			
 			// --> Adicionando recordes para os novos modos de jogo, parte 3:
 			/* Essa função aqui é chamada na classe "X". Para IDictionary referente a cada modo de jogo, 
 			adicione, uma por vez, a string referente ao nome das dificuldades do seu jogo, mapeando a 
 			string com a variável zero que é uma List<int> contendo todos seus elementos iguais a zero.
-			E pronto, está finalizado. Agora basta chamar as outras funções quando você quiser manipular
-			seu objeto Highscore. */
-	
-		
+			*/
+
 			List<int> zero = new List<int>();
-			for (int i = 0; i < Highscores.numRecordes; i++) { zero.Add(0); }
+			for (int i = 0; i < numMaxRecordes; i++) { zero.Add(0); }
 		
 			// Adicionando os recordes baseado em cada uma das dificuldades e o ranking mais baixo
-			// **** Precisão: Arcade, 4 dificuldades **** //
+			// **** Precisão-Arcade, 4 dificuldades **** //
 			this.highScorePrecisaoArcade.Add("Kids", zero);
 			this.highScorePrecisaoArcade.Add("Beginner", zero);
 			this.highScorePrecisaoArcade.Add("Experient", zero);
 			this.highScorePrecisaoArcade.Add("Challenger", zero);
 			for (int i = 0; i < 4; i++) { this.bestRanksPrecisaoArcade.Add(6); }
 			
-			// **** Precisão: TimeAttack, 4 dificuldades **** //
+			// **** Precisão-TimeAttack, 4 dificuldades **** //
 			this.highScorePrecisaoTimeAttack.Add("Kids", zero);
 			this.highScorePrecisaoTimeAttack.Add("Beginner", zero);
 			this.highScorePrecisaoTimeAttack.Add("Experient", zero);
 			this.highScorePrecisaoTimeAttack.Add("Challenger", zero);
 			for (int i = 0; i < 4; i++) { this.bestRanksPrecisaoTimeAttack.Add(6); }
 			
-			// **** Precisão: Basket10, 3 dificuldades **** //
+			// **** Precisão-Basket10, 3 dificuldades **** //
 			this.highScorePrecisaoBasket10.Add("Beginner", zero);
 			this.highScorePrecisaoBasket10.Add("Experient", zero);
 			this.highScorePrecisaoBasket10.Add("Challenger", zero);
@@ -110,18 +101,45 @@ namespace AssemblyCSharp {
 			
 			
 		}
-
-		public int melhorPontuacao(){
-			switch (Jogador.getJogoAtual()){
-				case "precisaoArcade": return this.highScorePrecisaoArcade[0];     
-				case "precisaoTimeAttack": return this.highScorePrecisaoTimeAttack[0];
-				case "PrecisaoBasket10": return this.highScorePrecisaoBasket10[0];
-				// --> Adicione aqui para novo recorde <--
+		
+		// --> Adicionando recordes para os novos modos de jogo, parte 4:
+		/* Essa função aqui quando chamada vai tentar adicionar um novo recorde na lista de recordes. 
+		O que ele faz é simplesmente chamar a função de ordenar recordes que retorna uma lista contendo todos
+		os recordes ordenados. Para um novo modo de jogo basta adicionar um case com o nome do seu modo de jogo
+		e atribuir a sua lista de recordes atual (passando a dificuldade escolhida que é a nossa chave) ao retorno
+		da chamada "ordenarRecordes" passando a sua própria lista de recordes e novoRecorde que a função vai 
+		ordenar automaticamente (se precisar). */
+		public void adicionarRecordes(int novoRecorde){
+			switch (jogoAtual){
+				case "precisaoArcade": 
+					highScorePrecisaoArcade[dificAtual] = ordenarRecordes(highScorePrecisaoArcade[dificAtual], novoRecorde);
+					break;
+				case "precisaoTimeAttack":
+					highScoreTimeAttack[dificAtual] = ordenarRecordes(highScorePrecisaoTimeAttack[dificAtual], novoRecorde);
+					break;
+				case "PrecisaoBasket10":
+					thighScoreTimeAttack[dificAtual] = ordenarRecordes(highScorePrecisaoTimeAttack[dificAtual], novoRecorde);
+					break;
 			}
-
-			return 0;
 		}
-
+		
+		
+		// --> Adicionando recordes para os novos modos de jogo, parte 5:
+		/* Esta função aqui retorna a melhor pontuação do jogador, baseado na dificuldade escolhida. O funcionamento
+		é bem semelhante à função anterior, apenas o retorno que é diferente. Do mesmo jeito, adicione um case com
+		o nome do seu modo de jogo e retorne o maior valor da sua lista de recordes associada com a sua chave definida
+		pela dificuldade atual. */
+		public int melhorPontuacao(){
+			switch (jogoAtual){
+				case "precisaoArcade": return highScorePrecisaoArcade[dificAtual].ElementAt(0);     
+				case "precisaoTimeAttack": return highScorePrecisaoTimeAttack[dificAtual].ElementAt(0);
+				case "PrecisaoBasket10": return highScorePrecisaoBasket10[dificAtual].ElementAt(0);
+				default: return null; 
+			}
+		}
+		
+		// --> Adicionando recordes para os novos modos de jogo, parte 6:
+		/* Mais uma vez, apenas questão de retorno. Aqui retornamos */
 		public int melhorRanking(){
 			switch (Jogador.getJogoAtual()){
 				case "precisaoArcade": return this.bestRankPrecisaoArcade; 
@@ -132,26 +150,9 @@ namespace AssemblyCSharp {
 
 			return 0;
 		}
+		
 
-
-		public void adicionarRecordes(int novoRecorde){
-			switch (Jogador.getJogoAtual()){
-				case "precisaoArcade": 
-					this.highScorePrecisaoArcade.Add(novoRecorde);
-					this.highScorePrecisaoArcade = this.ordenarRecordes(this.highScorePrecisaoArcade);
-					break;
-				case "precisaoTimeAttack":
-					this.highScorePrecisaoTimeAttack.Add(novoRecorde);
-					this.highScorePrecisaoTimeAttack = this.ordenarRecordes(this.highScorePrecisaoTimeAttack);
-					break;
-				case "PrecisaoBasket10":
-					this.highScorePrecisaoBasket10.Add(novoRecorde);
-					this.highScorePrecisaoBasket10 = this.ordenarRecordes(this.highScorePrecisaoBasket10);
-					break;
-				// --> Adicione aqui para novo recorde <--
-
-			}
-		}
+		
 
 		public bool adicionarRanking(int novoRanking){
 			switch (Jogador.getJogoAtual()){
@@ -176,4 +177,26 @@ namespace AssemblyCSharp {
 			return false;
 		}			
 	}
+	
+	/* Essa função aqui ordena os recordes na ordem descrescente, isto se o novo recorde a ser passado é 
+		maior que o último elemento da lista. Se sim, ele ordena os elementos, remove o último, que no caso
+		corresponderá ao novo recorde mais baixo da lista e o remove. */
+		private List<int> ordenarRecordes (List<int> recordes, int novoRecorde) {
+			
+			if (novoRecorde > recordes[numMaxRecordes - 1]){
+				recordes.Add(novoRecorde);
+				for (int i = 0; i < numMaxRecordes + 1; i++) {
+					for (int j = 0; j < numMaxRecordes + 1; j++) {
+						if (recordes[i] <= recordes[j]){
+							int temp = recordes[j];
+							recordes[i] = recordes[j];
+							recordes[j] = temp; 
+						}
+					}
+				}
+				recordes.RemoveAt(numMaxRecordes);
+			}
+			
+			return recordes;
+		}
 }
