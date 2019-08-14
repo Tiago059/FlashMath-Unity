@@ -57,6 +57,11 @@ namespace AssemblyCSharp {
 			this.highScorePrecisaoArcade = IDictionary<string, List<int>>();
 			this.highScorePrecisaoTimeAttack = IDictionary<string, List<int>>();
 			this.highScorePrecisaoBasket10 = IDictionary<string, List<int>>();
+			
+			this.bestRanksPrecisaoArcade = new List<int>();
+			this.bestRanksPrecisaoTimeAttack = new List<int>();
+			this.bestRanksPrecisaoBasket10 = new List<int>();
+			
 			// --> Adicione aqui para novo recorde <-- 
 		
 		}
@@ -76,20 +81,32 @@ namespace AssemblyCSharp {
 		}
 		
 		public void setValoresIniciais(){
-
-			this.bestRankPrecisaoArcade = 6;
-			this.bestRankPrecisaoTimeAttack = 6;
-			this.bestRankPrecisaoBasket10 = 6;
-			// --> Adicione aqui para novo recorde <--
-
-			for (int i = 0; i < Highscores.numRecordes; i++) {
-
-				this.highScorePrecisaoArcade.Add(0);
-				this.highScorePrecisaoTimeAttack.Add(0);
-				this.highScorePrecisaoBasket10.Add(0);
-				// --> Adicione aqui para novo recorde <--
-
-			}
+		
+			List<int> zero = new List<int>();
+			for (int i = 0; i < Highscores.numRecordes; i++) { zero.Add(0); }
+		
+			// Adicionando os recordes baseado em cada uma das dificuldades e o ranking mais baixo
+			// **** Precisão: Arcade **** //
+			this.highScorePrecisaoArcade.Add("Kids", zero);
+			this.highScorePrecisaoArcade.Add("Beginner", zero);
+			this.highScorePrecisaoArcade.Add("Experient", zero);
+			this.highScorePrecisaoArcade.Add("Challenger", zero);
+			for (int i = 0; i < 4; i++) { this.bestRanksPrecisaoArcade.Add(6); }
+			
+			// **** Precisão: TimeAttack **** //
+			this.highScorePrecisaoTimeAttack.Add("Kids", zero);
+			this.highScorePrecisaoTimeAttack.Add("Beginner", zero);
+			this.highScorePrecisaoTimeAttack.Add("Experient", zero);
+			this.highScorePrecisaoTimeAttack.Add("Challenger", zero);
+			for (int i = 0; i < 4; i++) { this.bestRanksPrecisaoTimeAttack.Add(6); }
+			
+			// **** Precisão: Basket10, 3 dificuldades **** //
+			this.highScorePrecisaoBasket10.Add("Beginner", zero);
+			this.highScorePrecisaoBasket10.Add("Experient", zero);
+			this.highScorePrecisaoBasket10.Add("Challenger", zero);
+			for (int i = 0; i < 3; i++) { this.bestRanksPrecisaoBasket10.Add(6); }
+			// --> Para novos modos de jogo, adicione aqui seus recordes <--
+			
 		}
 
 		public int melhorPontuacao(){
