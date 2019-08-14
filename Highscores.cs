@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace AssemblyCSharp {
 
@@ -27,32 +27,28 @@ namespace AssemblyCSharp {
 	*/
 	[System.Serializable]
 	public class Highscores {
-
-		/* Para adicionar novos recordes referentes a novos modos de jogo, onde estiver escrito
-		   "adicione aqui para novo recorde", crie uma variável de acordo com as já existentes. */
-		   
-		   /** As pontuações agora serão baseados na dificuldade, o que indica que para
-		   cada modo de jogo teremos 4 melhores tipos de recordes baseados nas 4 dificuldades do jogo.
-		   Lembrando que nem todos os modos terão 4 dificuldades. Para isso, usaremos um Dictionary
-		   quen funciona semelhante ao Map do Java. */
-
-		// Listas onde serão guardadas as melhores pontuações do jogado de cada modo.
-		// --> Adicione aqui para novo recorde <-- 
+		
+		// --> Adicionando recordes para os novos modos de jogo, parte 1:
+		/* Crie um IDictionary<string, List<int>>, onde a chave é o nome da dificuldade mapeada para
+		uma lista dos recordes referentes àquela dificuldade. Crie também uma List<int> que guardará
+		os rankings referentes a cada dificuldade do modo. */
+	
+		// Listas onde serão guardadas as melhores pontuações do jogado de cada modo
 		private IDictionary<string, List<int>> highScorePrecisaoArcade;
 		private IDictionary<string, List<int>> highScorePrecisaoTimeAttack;
 		private IDictionary<string, List<int>> highScorePrecisaoBasket10;
 
-		// Strings que contém cada um dos melhores rankings de cada modo pelo jogador. Uma 
-		// lista de int que guardará cada um das melhores pontuações baseada nas dificuldades
-		// --> Adicione aqui para novo recorde <-- 
 		private List<int> bestRanksPrecisaoArcade;
 		private List<int> bestRanksPrecisaoTimeAttack;
 		private List<int> bestRanksPrecisaoBasket10;
 
-		// Número de recordes que serão armazenados. 
+		// Número máximo de recordes que serão armazenados. 
 		private const int numRecordes = 5;
 
 		public Highscores(){
+		
+			// --> Adicionando recordes para os novos modos de jogo, parte 2:
+			/* Simples, apenas inicialize todas variáveis criadas anteriormente. */
 			
 			this.highScorePrecisaoArcade = IDictionary<string, List<int>>();
 			this.highScorePrecisaoTimeAttack = IDictionary<string, List<int>>();
@@ -61,9 +57,7 @@ namespace AssemblyCSharp {
 			this.bestRanksPrecisaoArcade = new List<int>();
 			this.bestRanksPrecisaoTimeAttack = new List<int>();
 			this.bestRanksPrecisaoBasket10 = new List<int>();
-			
-			// --> Adicione aqui para novo recorde <-- 
-		
+
 		}
 
 		private List<int> ordenarRecordes (List<int> recordes) {
@@ -81,19 +75,27 @@ namespace AssemblyCSharp {
 		}
 		
 		public void setValoresIniciais(){
+			
+			// --> Adicionando recordes para os novos modos de jogo, parte 3:
+			/* Essa função aqui é chamada na classe "X". Para IDictionary referente a cada modo de jogo, 
+			adicione, uma por vez, a string referente ao nome das dificuldades do seu jogo, mapeando a 
+			string com a variável zero que é uma List<int> contendo todos seus elementos iguais a zero.
+			E pronto, está finalizado. Agora basta chamar as outras funções quando você quiser manipular
+			seu objeto Highscore. */
+	
 		
 			List<int> zero = new List<int>();
 			for (int i = 0; i < Highscores.numRecordes; i++) { zero.Add(0); }
 		
 			// Adicionando os recordes baseado em cada uma das dificuldades e o ranking mais baixo
-			// **** Precisão: Arcade **** //
+			// **** Precisão: Arcade, 4 dificuldades **** //
 			this.highScorePrecisaoArcade.Add("Kids", zero);
 			this.highScorePrecisaoArcade.Add("Beginner", zero);
 			this.highScorePrecisaoArcade.Add("Experient", zero);
 			this.highScorePrecisaoArcade.Add("Challenger", zero);
 			for (int i = 0; i < 4; i++) { this.bestRanksPrecisaoArcade.Add(6); }
 			
-			// **** Precisão: TimeAttack **** //
+			// **** Precisão: TimeAttack, 4 dificuldades **** //
 			this.highScorePrecisaoTimeAttack.Add("Kids", zero);
 			this.highScorePrecisaoTimeAttack.Add("Beginner", zero);
 			this.highScorePrecisaoTimeAttack.Add("Experient", zero);
@@ -105,7 +107,7 @@ namespace AssemblyCSharp {
 			this.highScorePrecisaoBasket10.Add("Experient", zero);
 			this.highScorePrecisaoBasket10.Add("Challenger", zero);
 			for (int i = 0; i < 3; i++) { this.bestRanksPrecisaoBasket10.Add(6); }
-			// --> Para novos modos de jogo, adicione aqui seus recordes <--
+			
 			
 		}
 
