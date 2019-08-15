@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace AssemblyCSharp {
 
@@ -54,17 +54,39 @@ namespace AssemblyCSharp {
 			// --> Adicionando recordes para os novos modos de jogo, parte 2:
 			/* Simples, apenas inicialize todas variáveis criadas anteriormente. */
 	
-			highScorePrecisaoArcade = new IDictionary<string, List<int>>();
-			highScorePrecisaoTimeAttack = new IDictionary<string, List<int>>();
-			highScorePrecisaoBasket10 = new IDictionary<string, List<int>>();
+			highScorePrecisaoArcade = new Dictionary<string, List<int>>();
+			highScorePrecisaoTimeAttack = new Dictionary<string, List<int>>();
+			highScorePrecisaoBasket10 = new Dictionary<string, List<int>>();
 			
-			bestRanksPrecisaoArcade = new IDictionary<string, int>();
-			bestRanksPrecisaoTimeAttack = new IDictionary<string, int>();
-			bestRanksPrecisaoBasket10 = new IDictionary<string, int>();
+			bestRanksPrecisaoArcade = new Dictionary<string, int>();
+			bestRanksPrecisaoTimeAttack = new Dictionary<string, int>();
+			bestRanksPrecisaoBasket10 = new Dictionary<string, int>();
 			
 			jogoAtual = Jogador.getJogoAtual();
 			dificAtual = Jogador.getDificuldadeAtual();
 
+		}
+
+		/* Essa função aqui ordena os recordes na ordem descrescente, isto se o novo recorde a ser passado é 
+		maior que o último elemento da lista. Se sim, ele ordena os elementos, remove o último, que no caso
+		corresponderá ao novo recorde mais baixo da lista e o remove. */
+		private List<int> ordenarRecordes (List<int> recordes, int novoRecorde) {
+			
+			if (novoRecorde > recordes[numMaxRecordes - 1]){
+				recordes.Add(novoRecorde);
+				for (int i = 0; i < numMaxRecordes + 1; i++) {
+					for (int j = 0; j < numMaxRecordes + 1; j++) {
+						if (recordes[i] <= recordes[j]){
+							int temp = recordes[j];
+							recordes[i] = recordes[j];
+							recordes[j] = temp; 
+						}
+					}
+				}
+				recordes.RemoveAt(numMaxRecordes);
+			}
+			
+			return recordes;
 		}
 
 		public void setValoresIniciais(){
@@ -122,10 +144,10 @@ namespace AssemblyCSharp {
 					highScorePrecisaoArcade[dificAtual] = ordenarRecordes(highScorePrecisaoArcade[dificAtual], novoRecorde);
 					break;
 				case "precisaoTimeAttack":
-					highScoreTimeAttack[dificAtual] = ordenarRecordes(highScorePrecisaoTimeAttack[dificAtual], novoRecorde);
+					highScorePrecisaoTimeAttack[dificAtual] = ordenarRecordes(highScorePrecisaoTimeAttack[dificAtual], novoRecorde);
 					break;
 				case "PrecisaoBasket10":
-					thighScoreTimeAttack[dificAtual] = ordenarRecordes(highScorePrecisaoTimeAttack[dificAtual], novoRecorde);
+					highScorePrecisaoBasket10[dificAtual] = ordenarRecordes(highScorePrecisaoBasket10[dificAtual], novoRecorde);
 					break;
 			}
 		}
@@ -138,9 +160,9 @@ namespace AssemblyCSharp {
 		pela dificuldade atual. */
 		public int melhorPontuacao(){
 			switch (jogoAtual){
-				case "precisaoArcade": return highScorePrecisaoArcade[dificAtual].ElementAt(0);     
-				case "precisaoTimeAttack": return highScorePrecisaoTimeAttack[dificAtual].ElementAt(0);
-				case "PrecisaoBasket10": return highScorePrecisaoBasket10[dificAtual].ElementAt(0);
+				case "precisaoArcade": return highScorePrecisaoArcade[dificAtual][0];    
+				case "precisaoTimeAttack": return highScorePrecisaoTimeAttack[dificAtual][0];
+				case "PrecisaoBasket10": return highScorePrecisaoBasket10[dificAtual][0];
 				default: return 0;
 			}
 		}
@@ -152,7 +174,7 @@ namespace AssemblyCSharp {
 			switch (jogoAtual){
 				case "precisaoArcade": return bestRanksPrecisaoArcade[dificAtual]; 
 				case "precisaoTimeAttack": return bestRanksPrecisaoTimeAttack[dificAtual];
-				case "PrecisaoBasket10": return bestRankPrecisaoBasket10[dificAtual];
+				case "PrecisaoBasket10": return bestRanksPrecisaoBasket10[dificAtual];
 				default: return 0;
 			}
 		}
@@ -162,8 +184,7 @@ namespace AssemblyCSharp {
 		maior que o atual. */
 		public bool adicionarRanking(int novoRanking){
 			switch (jogoAtual){
-				case "precisaoArcade": return novoRanking < 
-					saudacao = agora.Hour > 12 ? "Boa Tarde" : "Bom dia";
+				case "precisaoArcade": 
 					if (novoRanking < bestRanksPrecisaoArcade[dificAtual]){ 
 						bestRanksPrecisaoArcade[dificAtual] = novoRanking;
 						return true; 
@@ -175,8 +196,8 @@ namespace AssemblyCSharp {
 						return true; 
 					} else { return false; }
 				case "PrecisaoBasket10":
-					if (novoRanking < this.bestRankPrecisaoBasket10){ 
-						this.bestRankPrecisaoBasket10 = novoRanking;
+					if (novoRanking < bestRanksPrecisaoBasket10[dificAtual]){ 
+						this.bestRanksPrecisaoBasket10[dificAtual] = novoRanking;
 						return true; 
 					} else { return false; }
 				// --> Adicione aqui para novo recorde <--
@@ -186,25 +207,5 @@ namespace AssemblyCSharp {
 		}			
 	}
 	
-	/* Essa função aqui ordena os recordes na ordem descrescente, isto se o novo recorde a ser passado é 
-		maior que o último elemento da lista. Se sim, ele ordena os elementos, remove o último, que no caso
-		corresponderá ao novo recorde mais baixo da lista e o remove. */
-		private List<int> ordenarRecordes (List<int> recordes, int novoRecorde) {
-			
-			if (novoRecorde > recordes[numMaxRecordes - 1]){
-				recordes.Add(novoRecorde);
-				for (int i = 0; i < numMaxRecordes + 1; i++) {
-					for (int j = 0; j < numMaxRecordes + 1; j++) {
-						if (recordes[i] <= recordes[j]){
-							int temp = recordes[j];
-							recordes[i] = recordes[j];
-							recordes[j] = temp; 
-						}
-					}
-				}
-				recordes.RemoveAt(numMaxRecordes);
-			}
-			
-			return recordes;
-		}
+	
 }

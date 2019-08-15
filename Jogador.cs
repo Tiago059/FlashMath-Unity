@@ -12,63 +12,63 @@
 		private static int qtdExpressoes = 0; // Expressões feitas pelo jogador
 		private static int vidas; // Vidas do jogador, UAU
 
-		public static string getCenaAtual(){ return Jogador.cenaAtual; }
+		public static string getCenaAtual(){ return cenaAtual; }
 		public static void setCenaAtual(string cenaAtual){ Jogador.cenaAtual = cenaAtual; }
 
-		public static string getJogoAtual(){ return Jogador.jogoAtual; }
+		public static string getJogoAtual(){ return jogoAtual; }
 		public static void setJogoAtual(string jogoAtual){ Jogador.jogoAtual = jogoAtual; }
 
-		public static string getDificuldadeAtual(){ return Jogador.dificuldade; }
+		public static string getDificuldadeAtual(){ return dificuldade; }
 		public static void setDificuldadeAtual(string dificuldade){ Jogador.dificuldade = dificuldade; }
 
 		public static void setHighscoresIniciais(){ 
-			Jogador.highscores = new Highscores();
-			Jogador.highscores.setValoresIniciais();
+			highscores = new Highscores();
+			highscores.setValoresIniciais();
 		}
 
-		public static Highscores getHighscores(){ return Jogador.highscores; }
+		public static Highscores getHighscores(){ return highscores; }
 		public static void setHighscores(Highscores highscores){ Jogador.highscores = highscores; }
 
-		public static int getPontuacao(){ return Jogador.pontuacao; }
-		public static void adicionarPontuacao(int pontos){ Jogador.pontuacao += pontos; }
+		public static int getPontuacao(){ return pontuacao; }
+		public static void adicionarPontuacao(int pontos){ pontuacao += pontos; }
 
-		public static int getExpressoes(){ return Jogador.qtdExpressoes; }
+		public static int getExpressoes(){ return qtdExpressoes; }
 		public static void adicionarExpressoes(){ Jogador.qtdExpressoes++; }
 
-		public static int getVidas(){ return Jogador.vidas; }
-		public static void tirarVidas(){ Jogador.vidas--; }
-		public static void setVidas(int vidas){Jogador.vidas = vidas;}
+		public static int getVidas(){ return vidas; }
+		public static void tirarVidas(){ vidas--; }
+		public static void setVidas(int vidas){ Jogador.vidas = vidas;}
 
 		// Zeramos a pontuação e as expressões do jogador, resetando a vida também dependendo do modo
 		public static void resetarDadosJogador(){
-			Jogador.pontuacao = 0;
-			Jogador.qtdExpressoes = 0;
-			switch (Jogador.jogoAtual){
-				case "precisaoArcade": Jogador.vidas = 3; break;
-				case "precisaoTimeAttack": Jogador.vidas = 1; break;
+			pontuacao = 0;
+			qtdExpressoes = 0;
+			switch (jogoAtual){
+				case "precisaoArcade": vidas = 3; break;
+				case "precisaoTimeAttack": vidas = 1; break;
 			}
 		}
 
 		// Aqui geramos o número do ranking, para depois ser convertido em letras, dependendo do modo
 		public static int gerarNumeroRanking(){
-			switch (Jogador.jogoAtual) {
+			switch (jogoAtual) {
 			case ("precisaoArcade"):
-				if (Jogador.pontuacao < 350) { return 6; } 
-				else if (Jogador.pontuacao >= 350 && Jogador.pontuacao < 575) { return 5; }
-				else if (Jogador.pontuacao >= 575 && Jogador.pontuacao < 790) { return 4; } 
-				else if (Jogador.pontuacao >= 790 && Jogador.pontuacao < 935) { return 3; } 
-				else if (Jogador.pontuacao >= 935 && Jogador.pontuacao < 1150) { return 2; } 
-				else if (Jogador.pontuacao >= 1150 && Jogador.pontuacao < 1766) { return 1; } 
-				else if (Jogador.pontuacao >= 1766) { return 0; }
+				if (pontuacao < 350) { return 6; } 
+				else if (pontuacao >= 350 && pontuacao < 575) { return 5; }
+				else if (pontuacao >= 575 && pontuacao < 790) { return 4; } 
+				else if (pontuacao >= 790 && pontuacao < 935) { return 3; } 
+				else if (pontuacao >= 935 && pontuacao < 1150) { return 2; } 
+				else if (pontuacao >= 1150 && pontuacao < 1766) { return 1; } 
+				else if (pontuacao >= 1766) { return 0; }
 				break;
 			case ("precisaoTimeAttack"):
-				if (Jogador.pontuacao < 18) { return 6; } 
-				else if (Jogador.pontuacao >= 18 && Jogador.pontuacao < 30) { return 5; }
-				else if (Jogador.pontuacao >= 30 && Jogador.pontuacao < 45) { return 4; } 
-				else if (Jogador.pontuacao >= 45 && Jogador.pontuacao < 67) { return 3; } 
-				else if (Jogador.pontuacao >= 67 && Jogador.pontuacao < 82) { return 2; } 
-				else if (Jogador.pontuacao >= 82 && Jogador.pontuacao < 100) { return 1; } 
-				else if (Jogador.pontuacao >= 100) { return 0; }
+				if (pontuacao < 18) { return 6; } 
+				else if (pontuacao >= 18 && pontuacao < 30) { return 5; }
+				else if (pontuacao >= 30 && pontuacao < 45) { return 4; } 
+				else if (pontuacao >= 45 && pontuacao < 67) { return 3; } 
+				else if (pontuacao >= 67 && pontuacao < 82) { return 2; } 
+				else if (pontuacao >= 82 && pontuacao < 100) { return 1; } 
+				else if (pontuacao >= 100) { return 0; }
 				break;
 			}
 
@@ -86,9 +86,8 @@
 			    case 2: return "B"; 
 			    case 1: return "A"; 
 			    case 0: return "S"; 
+				default: return "X";
 			}
-
-			return "";
 		}
 	}
 }

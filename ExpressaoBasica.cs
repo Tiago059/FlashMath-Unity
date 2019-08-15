@@ -21,148 +21,220 @@ namespace AssemblyCSharp {
 				case 2: return " - "; 
 				case 3: return " x "; 
 				case 4: return " / "; 
+				default: return " error ";
 			}
-			return "";
 		}
 
-		private int[] gerarDificuldade(int qtdExpressoes){
+	/* Essa função recebe a quantidade de expressões e retorna um vetor de dificuldade baseada nesta
+    quantidade e na dificuldade escolhida pelo jogador. */
+		private static int[] gerarDificuldade(int qtdExpressoes){
 			// Um vetor de 3 posições: Intervalo1 e Intervalo2 dos números, e o número do operador
 			int[] dificuldade = new int[3]; 
 
-			// Dependendo do modo de Jogo, a dificuldade os números são gerados de uma maneira um pouco diferente
+			// Dependendo do modo de Jogo e da dificuldade, a dificuldade os números são gerados de uma maneira um pouco diferente
 			switch(Jogador.getJogoAtual()){
-			case "precisaoArcade":
-				if (qtdExpressoes < 21) {
-					// Dificuldade 1 - Muito fácil: Números de 0 a 10, com 2 operações: somar e subtrair
-					dificuldade [0] = 0;
-					dificuldade [1] = 10; 
-					dificuldade [2] = 2; 
-				} else if (qtdExpressoes >= 21 && qtdExpressoes < 36) {
-					// Dificuldade 2 - Fácil: Números de -15 a 15, com 2 operações: somar e subtrair
-					dificuldade [0] = -15;
-					dificuldade [1] = 15;
-					dificuldade [2] = 2;
-				} else if (qtdExpressoes >= 36 && qtdExpressoes < 51) {
-					// Dificuldade 3 - Um pouco fácil: Números de -25 a 25, com 2 operações: somar e subtrair
-					dificuldade [0] = -25;
-					dificuldade [1] = 25;
-					dificuldade [2] = 2;
-				} else if (qtdExpressoes >= 51 && qtdExpressoes < 59) {
-					// Dificuldade 4 - Médio: Números de 0 a 10, com as 4 operações básicas (+, -, *, /)
-					dificuldade [0] = 0;
-					dificuldade [1] = 10;
-					dificuldade [2] = 4;
-				} else if (qtdExpressoes >= 59 && qtdExpressoes < 69) {
-					// Dificuldade 5 - Um pouco díficil: Números de -10 a 10, com as 4 operações
-					dificuldade [0] = -10;
-					dificuldade [1] = 10;
-					dificuldade [2] = 4;
-				} else if (qtdExpressoes >= 69 && qtdExpressoes < 75) {
-					// Dificuldade 6 - Difícil: Números de -15 a 15, com as 4 operações
-					dificuldade [0] = -15;
-					dificuldade [1] = 15;
-					dificuldade [2] = 4;
-				} else if (qtdExpressoes >= 75 && qtdExpressoes < 100) {
-					// Dificuldade 7 - Muito Difícil: Números de -25 a 25, com as 4 operações
-					dificuldade [0] = -25;
-					dificuldade [1] = 25;
-					dificuldade [2] = 4;
-				} else if (qtdExpressoes >= 100) {
-					// Dificuldade 8 - Insanamente Difícil: Números de -100 a 100, com as 4 operações
-					dificuldade [0] = -100;
-					dificuldade [1] = 100;
-					dificuldade [2] = 4;
+				case "precisaoArcade":
+					switch(Jogador.getDificuldadeAtual()){
+						// *** Dificuldade 2: Beginner (Medium) *** //
+						case "Beginner":
+							if (qtdExpressoes < 7) {
+								dificuldade [0] = 0;
+								dificuldade [1] = 10; 
+								dificuldade [2] = 2; 
+							} else if (qtdExpressoes >= 7 && qtdExpressoes < 15) {
+								dificuldade [0] = -15;
+								dificuldade [1] = 15;
+								dificuldade [2] = 2;
+							} else if (qtdExpressoes >= 15 && qtdExpressoes < 29) {
+								dificuldade [0] = -25;
+								dificuldade [1] = 25;
+								dificuldade [2] = 3;
+							} else if (qtdExpressoes >= 29 && qtdExpressoes < 36) {
+								dificuldade [0] = 0;
+								dificuldade [1] = 10;
+								dificuldade [2] = 4;
+							} else if (qtdExpressoes >= 36 && qtdExpressoes < 48) {
+								dificuldade [0] = -15;
+								dificuldade [1] = 15;
+								dificuldade [2] = 4;
+							} else if (qtdExpressoes >= 48 && qtdExpressoes < 71) {
+								dificuldade [0] = -35;
+								dificuldade [1] = 35;
+								dificuldade [2] = 4;
+							} else if (qtdExpressoes >= 71 && qtdExpressoes < 100) {
+								dificuldade [0] = -70;
+								dificuldade [1] = 70;
+								dificuldade [2] = 4;
+							} else if (qtdExpressoes >= 100) {
+								dificuldade [0] = -100;
+								dificuldade [1] = 100;
+								dificuldade [2] = 4;
+							}
+							break;
+						// *** Dificuldade 3: Experient (Hard) *** //
+						case "Experient":
+							if (qtdExpressoes < 7) {
+								dificuldade [0] = 0;
+								dificuldade [1] = 10; 
+								dificuldade [2] = 2; 
+							} else if (qtdExpressoes >= 7 && qtdExpressoes < 15) {
+								dificuldade [0] = -15;
+								dificuldade [1] = 15;
+								dificuldade [2] = 2;
+							} else if (qtdExpressoes >= 15 && qtdExpressoes < 29) {
+								dificuldade [0] = -25;
+								dificuldade [1] = 25;
+								dificuldade [2] = 3;
+							} else if (qtdExpressoes >= 29 && qtdExpressoes < 36) {
+								dificuldade [0] = 0;
+								dificuldade [1] = 10;
+								dificuldade [2] = 4;
+							} else if (qtdExpressoes >= 36 && qtdExpressoes < 48) {
+								dificuldade [0] = -15;
+								dificuldade [1] = 15;
+								dificuldade [2] = 4;
+							} else if (qtdExpressoes >= 48 && qtdExpressoes < 71) {
+								dificuldade [0] = -35;
+								dificuldade [1] = 35;
+								dificuldade [2] = 4;
+							} else if (qtdExpressoes >= 71 && qtdExpressoes < 100) {
+								dificuldade [0] = -70;
+								dificuldade [1] = 70;
+								dificuldade [2] = 4;
+							} else if (qtdExpressoes >= 100) {
+								dificuldade [0] = -100;
+								dificuldade [1] = 100;
+								dificuldade [2] = 4;
+							}
+							break;
+
+						// *** Dificuldade 4: Challenger (Expert) *** //
+						case "Challenger":
+							if (qtdExpressoes < 3) {
+								dificuldade [0] = 0;
+								dificuldade [1] = 10; 
+								dificuldade [2] = 2; 
+							} else if (qtdExpressoes >= 3 && qtdExpressoes < 10) {
+								dificuldade [0] = 0;
+								dificuldade [1] = 50;
+								dificuldade [2] = 2;
+							} else if (qtdExpressoes >= 10 && qtdExpressoes < 30) {
+								dificuldade [0] = -75;
+								dificuldade [1] = 75;
+								dificuldade [2] = 3;
+							} else if (qtdExpressoes >= 30 && qtdExpressoes < 50) {
+								dificuldade [0] = -100;
+								dificuldade [1] = 100;
+								dificuldade [2] = 3;
+							} else if (qtdExpressoes >= 50 && qtdExpressoes < 66) {
+								dificuldade [0] = -250;
+								dificuldade [1] = 250;
+								dificuldade [2] = 3;
+							} else if (qtdExpressoes >= 66 && qtdExpressoes < 89) {
+								dificuldade [0] = -500;
+								dificuldade [1] = 500;
+								dificuldade [2] = 4;
+							} else if (qtdExpressoes >= 89 && qtdExpressoes < 100) {
+								dificuldade [0] = -666;
+								dificuldade [1] = 666;
+								dificuldade [2] = 4;
+							} else if (qtdExpressoes >= 100) {
+								dificuldade [0] = -999;
+								dificuldade [1] = 999;
+								dificuldade [2] = 4;
+							}
+							break;
+					}
+					break;
+				case "precisaoTimeAttack":
+					if (qtdExpressoes < 13) {
+						// Dificuldade 1 - Muito fácil: Números de 0 a 5, com 2 operações: somar e subtrair
+						dificuldade [0] = 0;
+						dificuldade [1] = 5;
+						dificuldade [2] = 2;
+					} else if (qtdExpressoes >= 13 && qtdExpressoes < 25) {
+						// Dificuldade 2 - Fácil: Números de 0 a 10, com 2 operações: somar e subtrair
+						dificuldade [0] = 0;
+						dificuldade [1] = 10;
+						dificuldade [2] = 2;
+					} else if (qtdExpressoes >= 25 && qtdExpressoes < 40) {
+						// Dificuldade 3 - Um pouco fácil: Números de -10 a 10, com 2 operações: somar e subtrair
+						dificuldade [0] = -10;
+						dificuldade [1] = 10;
+						dificuldade [2] = 2;
+					} else if (qtdExpressoes >= 40 && qtdExpressoes < 62) {
+						// Dificuldade 4 - Médio: Números de -5 a 5, com as 4 operações básicas (+, -, *, /)
+						dificuldade [0] = -5;
+						dificuldade [1] = 5;
+						dificuldade [2] = 4;
+					} else if (qtdExpressoes >= 62 && qtdExpressoes < 77) {
+						// Dificuldade 5 - Um pouco díficil: Números de -10 a 10, com as 4 operações
+						dificuldade [0] = -10;
+						dificuldade [1] = 10;
+						dificuldade [2] = 4;
+					} else if (qtdExpressoes >= 77 && qtdExpressoes < 87) {
+						// Dificuldade 6 - Difícil: Números de -15 a 15, com as 4 operações
+						dificuldade [0] = -15;
+						dificuldade [1] = 15;
+						dificuldade [2] = 4;
+					} else if (qtdExpressoes >= 87 && qtdExpressoes < 100) {
+						// Dificuldade 6 - Muito Difícil: Números de -25 a 25, com as 4 operações
+						dificuldade [0] = -25;
+						dificuldade [1] = 25;
+						dificuldade [2] = 4;
+					} else if (qtdExpressoes >= 100) {
+						// Dificuldade 7 - Insanamente Difícil: Números de -100 a 100, com as 4 operações
+						dificuldade [0] = -100;
+						dificuldade [1] = 100;
+						dificuldade [2] = 4;
+					}
+					break;
+				case "PrecisaoBasket10":
+					// Se tratando deste modo, todas as expressões só serão de somar :)
+					if (qtdExpressoes < 12) {
+						// Dificuldade 1 - Very Easy: Números de 0 a 5
+						dificuldade [0] = 0;
+						dificuldade [1] = 5; 
+						dificuldade [2] = 1; 
+					} else if (qtdExpressoes >= 12 && qtdExpressoes < 25) {
+						// Dificuldade 2 - Easy: Números de -7 a 7
+						dificuldade [0] = -7;
+						dificuldade [1] = 7;
+						dificuldade [2] = 1;
+					} else if (qtdExpressoes >= 25 && qtdExpressoes < 41) {
+						// Dificuldade 3 - Somewhat Easy: Números de -15 a 15
+						dificuldade [0] = -15;
+						dificuldade [1] = 15;
+						dificuldade [2] = 1;
+					} else if (qtdExpressoes >= 41 && qtdExpressoes < 61) {
+						// Dificuldade 4 - Medium: Números de 0 a 30
+						dificuldade [0] = 0;
+						dificuldade [1] = 30;
+						dificuldade [2] = 1;
+					} else if (qtdExpressoes >= 61 && qtdExpressoes < 79) {
+						// Dificuldade 5 - Somewhat Hard: Números de -30 a 30
+						dificuldade [0] = -30;
+						dificuldade [1] = 30;
+						dificuldade [2] = 1;
+					} else if (qtdExpressoes >= 79 && qtdExpressoes < 89) {
+						// Dificuldade 6 - Hard: Números de -60 a 60
+						dificuldade [0] = -60;
+						dificuldade [1] = 60;
+						dificuldade [2] = 1;
+					} else if (qtdExpressoes >= 89 && qtdExpressoes < 100) {
+						// Dificuldade 7 - Very Hard: Números de 0 a 100
+						dificuldade [0] = 0;
+						dificuldade [1] = 100;
+						dificuldade [2] = 1;
+					} else if (qtdExpressoes >= 100) {
+						// Dificuldade 8 - Insanaly Hard: Números de -100 a 100
+						dificuldade [0] = -100;
+						dificuldade [1] = 100;
+						dificuldade [2] = 1;
+					}
+					break;
 				}
-				break;
-			case "precisaoTimeAttack":
-				if (qtdExpressoes < 13) {
-					// Dificuldade 1 - Muito fácil: Números de 0 a 5, com 2 operações: somar e subtrair
-					dificuldade [0] = 0;
-					dificuldade [1] = 5;
-					dificuldade [2] = 2;
-				} else if (qtdExpressoes >= 13 && qtdExpressoes < 25) {
-					// Dificuldade 2 - Fácil: Números de 0 a 10, com 2 operações: somar e subtrair
-					dificuldade [0] = 0;
-					dificuldade [1] = 10;
-					dificuldade [2] = 2;
-				} else if (qtdExpressoes >= 25 && qtdExpressoes < 40) {
-					// Dificuldade 3 - Um pouco fácil: Números de -10 a 10, com 2 operações: somar e subtrair
-					dificuldade [0] = -10;
-					dificuldade [1] = 10;
-					dificuldade [2] = 2;
-				} else if (qtdExpressoes >= 40 && qtdExpressoes < 62) {
-					// Dificuldade 4 - Médio: Números de -5 a 5, com as 4 operações básicas (+, -, *, /)
-					dificuldade [0] = -5;
-					dificuldade [1] = 5;
-					dificuldade [2] = 4;
-				} else if (qtdExpressoes >= 62 && qtdExpressoes < 77) {
-					// Dificuldade 5 - Um pouco díficil: Números de -10 a 10, com as 4 operações
-					dificuldade [0] = -10;
-					dificuldade [1] = 10;
-					dificuldade [2] = 4;
-				} else if (qtdExpressoes >= 77 && qtdExpressoes < 87) {
-					// Dificuldade 6 - Difícil: Números de -15 a 15, com as 4 operações
-					dificuldade [0] = -15;
-					dificuldade [1] = 15;
-					dificuldade [2] = 4;
-				} else if (qtdExpressoes >= 87 && qtdExpressoes < 100) {
-					// Dificuldade 6 - Muito Difícil: Números de -25 a 25, com as 4 operações
-					dificuldade [0] = -25;
-					dificuldade [1] = 25;
-					dificuldade [2] = 4;
-				} else if (qtdExpressoes >= 100) {
-					// Dificuldade 7 - Insanamente Difícil: Números de -100 a 100, com as 4 operações
-					dificuldade [0] = -100;
-					dificuldade [1] = 100;
-					dificuldade [2] = 4;
-				}
-				break;
-			case "PrecisaoBasket10":
-				// Se tratando deste modo, todas as expressões só serão de somar :)
-				if (qtdExpressoes < 12) {
-					// Dificuldade 1 - Very Easy: Números de 0 a 5
-					dificuldade [0] = 0;
-					dificuldade [1] = 5; 
-					dificuldade [2] = 1; 
-				} else if (qtdExpressoes >= 12 && qtdExpressoes < 25) {
-					// Dificuldade 2 - Easy: Números de -7 a 7
-					dificuldade [0] = -7;
-					dificuldade [1] = 7;
-					dificuldade [2] = 1;
-				} else if (qtdExpressoes >= 25 && qtdExpressoes < 41) {
-					// Dificuldade 3 - Somewhat Easy: Números de -15 a 15
-					dificuldade [0] = -15;
-					dificuldade [1] = 15;
-					dificuldade [2] = 1;
-				} else if (qtdExpressoes >= 41 && qtdExpressoes < 61) {
-					// Dificuldade 4 - Medium: Números de 0 a 30
-					dificuldade [0] = 0;
-					dificuldade [1] = 30;
-					dificuldade [2] = 1;
-				} else if (qtdExpressoes >= 61 && qtdExpressoes < 79) {
-					// Dificuldade 5 - Somewhat Hard: Números de -30 a 30
-					dificuldade [0] = -30;
-					dificuldade [1] = 30;
-					dificuldade [2] = 1;
-				} else if (qtdExpressoes >= 79 && qtdExpressoes < 89) {
-					// Dificuldade 6 - Hard: Números de -60 a 60
-					dificuldade [0] = -60;
-					dificuldade [1] = 60;
-					dificuldade [2] = 1;
-				} else if (qtdExpressoes >= 89 && qtdExpressoes < 100) {
-					// Dificuldade 7 - Very Hard: Números de 0 a 100
-					dificuldade [0] = 0;
-					dificuldade [1] = 100;
-					dificuldade [2] = 1;
-				} else if (qtdExpressoes >= 100) {
-					// Dificuldade 8 - Insanaly Hard: Números de -100 a 100
-					dificuldade [0] = -100;
-					dificuldade [1] = 100;
-					dificuldade [2] = 1;
-				}
-				break;
-			}
-			return dificuldade;
+				return dificuldade;
 		}
 
 		private void gerarResultado(int operador){
@@ -173,10 +245,34 @@ namespace AssemblyCSharp {
 			int resultado = 0;
 
 			switch(operador){
-
-				// Retornamos a soma dos dois números
-				case 1: resultado = num1 + num2;  break;
-				case 2: resultado = num1 - num2; break;
+				// Caso 1: Soma dos dois números
+				case 1: 
+					switch(Jogador.getDificuldadeAtual()){
+						// Restrições: Dificuldade 1 - Kids
+						/* A soma não pode haver agrupamento. */
+						case "Kids":
+							while (num2 >= 10){ num2 = gerarNumeroAleatorio(this.dificuldade[0], this.dificuldade[1]);  }
+							while ( (num1 < 10 && num2 < 10) && (num1 + num2 >= 10) ) { 
+								num1 = gerarNumeroAleatorio(this.dificuldade[0], this.dificuldade[1]);
+							}
+							break;
+					}
+					resultado = num1 + num2;
+					break;
+				case 2: 
+					switch(Jogador.getDificuldadeAtual()){
+						// Restrições: Dificuldade 1 - Kids
+						/* A soma não pode haver agrupamento. */
+						case "Kids":
+							while (num2 >= 10){ num2 = gerarNumeroAleatorio(this.dificuldade[0], this.dificuldade[1]);  }
+							while ( (num1 < 10 && num2 < 10) && (num1 + num2 >= 10) ) { 
+								num1 = gerarNumeroAleatorio(this.dificuldade[0], this.dificuldade[1]);
+							}
+							break;
+					}
+					resultado = num1 + num2;
+					break;
+				resultado = num1 - num2; break;
 				/* Tratando da multiplicação, prefiro não colocar uma faixa muito grande de números, já que
                  * tornaria o cálculo próximo do impossível a ser feito em 15 segundos. Então, vou definir uma
                  * faixa específica de números a serem gerados e mandar o num2 estar nesta faixa antes de 
@@ -215,6 +311,8 @@ namespace AssemblyCSharp {
 			this.resultado = resultado.ToString();
 
 		}
+
+
 
 		// Construtor
 		public ExpressaoBasica (int qtdExpressoes) {
