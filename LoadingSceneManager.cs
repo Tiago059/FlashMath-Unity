@@ -91,7 +91,7 @@ public class LoadingSceneManager : MonoBehaviour {
 		/* Outra informação é saber se a cena foi carregada. Enquanto ela não
 		for, esta será o tempo que a tela de loading ficará na tela. */
 		while (!async.isDone){ 
-			Debug.Log("sass");
+			Debug.Log("JOOJ");
 			// E o progresso exato do carregamento é pegado através do async.progress
 			float progress = async.progress;
 
@@ -109,7 +109,7 @@ public class LoadingSceneManager : MonoBehaviour {
 
 			// Pesquisar: para que serve isto?
 			yield return null;
-			Debug.Log("sa"); 
+			Debug.Log("SAAS"); 
 		}
 
 	}

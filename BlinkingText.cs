@@ -7,7 +7,7 @@ public class BlinkingText : MonoBehaviour {
 	public float duration; // Duração do efeito
 
 	private float timerBlinkDelay; // Timer que gerenciará o tempo a ser piscado
-	private byte myTurn = 1; // Contador que gerenciará o tempo dado ao efeito
+	private long myTurn = 1; // Contador que gerenciará o tempo dado ao efeito
 
 	void Update () {
 
