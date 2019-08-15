@@ -245,7 +245,7 @@ namespace AssemblyCSharp {
 			int resultado = 0;
 
 			switch(operador){
-				// Caso 1: Soma dos dois números
+				// *** Caso 1: Soma dos dois números *** //
 				case 1: 
 					switch(Jogador.getDificuldadeAtual()){
 						// Restrições: Dificuldade 1 - Kids
@@ -259,41 +259,44 @@ namespace AssemblyCSharp {
 					}
 					resultado = num1 + num2;
 					break;
+				// *** Caso 2: Subtração dos dois números *** //
 				case 2: 
 					switch(Jogador.getDificuldadeAtual()){
 						// Restrições: Dificuldade 1 - Kids
-						/* A soma não pode haver agrupamento. */
+						/* A subtração não pode haver agrupamento nem ter um resultado negativo. */
 						case "Kids":
-							while (num2 >= 10){ num2 = gerarNumeroAleatorio(this.dificuldade[0], this.dificuldade[1]);  }
-							while ( (num1 < 10 && num2 < 10) && (num1 + num2 >= 10) ) { 
-								num1 = gerarNumeroAleatorio(this.dificuldade[0], this.dificuldade[1]);
-							}
+							while (num1 >= 10 && num2 < 10) { num1 = gerarNumeroAleatorio(this.dificuldade[0], this.dificuldade[1]); }
+						    while (num1 < num2){ num2 = gerarNumeroAleatorio(this.dificuldade[0], this.dificuldade[1]);  }
+							break;
+						// Restrições: Dificuldade 2 - Beginner
+						/* A subtração não pode ter um resultado negativo. */
+						case "Beginner":
+							while (num1 < num2){  num2 = gerarNumeroAleatorio(this.dificuldade[0], this.dificuldade[1]);  }
 							break;
 					}
-					resultado = num1 + num2;
+					resultado = num1 - num2;
 					break;
-				resultado = num1 - num2; break;
-				/* Tratando da multiplicação, prefiro não colocar uma faixa muito grande de números, já que
-                 * tornaria o cálculo próximo do impossível a ser feito em 15 segundos. Então, vou definir uma
-                 * faixa específica de números a serem gerados e mandar o num2 estar nesta faixa antes de 
-                 * prosseguir com a multiplicação.
-                 * Faixa para o PrecisaoArcade - Average: -10 a 10
-                 * Faixa para o PrecisaoArcade - Challenger: -25 a 25
-				*/
+				// *** Caso 3: Multiplicação dos dois números *** //
 				case 3:
- 
-					while ( num2 < -10 || num2 > 10 ){ 
-						num2 = gerarNumeroAleatorio(this.dificuldade[0], this.dificuldade[1]); 
+					switch(Jogador.getDificuldadeAtual()){
+						// Restrições: Dificuldade 3 - Experient
+						/* As multiplicações não podem ser feitas por números menores que -10 e maiores que 10. */
+						case "Experient":
+							while ( num2 < -10 || num2 > 10 ){ num2 = gerarNumeroAleatorio(this.dificuldade[0], this.dificuldade[1]); }
+							break;
+						// Restrições: Dificuldade 4 - Challenger
+						/* As multiplicações não podem ser feitas por números menores que -15 e maiores que 15. */
+						case "Experient":
+							while ( num2 < -15 || num2 > 15 ){ num2 = gerarNumeroAleatorio(this.dificuldade[0], this.dificuldade[1]); }
+							break;
 					}
-					resultado = num1 * num2;  
-					break;
-				/* Tratando da divisão, agora preciso garantir que a divisão sempre seja um 
-				   resultado inteiro, senão, a função tem que se chamada recursivamente até que o
-				   resultado gerado seja um número inteiro.  
-				*/
+					resultado = num1 * num2;
+					break
+				// *** Caso 4: Divisão dos dois números *** //
 				case 4:
+					// Tratando da divisão, as restrições são globais, tanto para o Experient quanto para o Challenger
 					// Se o resto da divisão dos números for diferente de 0, com certeza o número não é inteiro
-					// E também claro, divisões por zero não existem
+					// E também claro, divisões por zero não podem existir
 					while (num2 == 0 || num1 % num2 != 0){
 						num1 = gerarNumeroAleatorio(this.dificuldade[0], this.dificuldade[1]);
 						num2 = gerarNumeroAleatorio(this.dificuldade[0], this.dificuldade[1]);
@@ -307,12 +310,11 @@ namespace AssemblyCSharp {
 			this.numero2 = num2.ToString();
 			if (num1 < 0) { this.numero1 = "(" + this.numero1 + ")"; }
 			if (num2 < 0) { this.numero2 = "(" + this.numero2 + ")"; }
-
+			
+			// Com o resultado em mãos, convertemos ele para string para ser exibido na tela
 			this.resultado = resultado.ToString();
 
 		}
-
-
 
 		// Construtor
 		public ExpressaoBasica (int qtdExpressoes) {
