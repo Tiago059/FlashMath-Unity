@@ -9,9 +9,7 @@ public class menuPrecisao : MonoBehaviour {
 	
 	public GameObject[] imagesOptions; // Onde as imagens de cada modo ficarão
 	public Text descriptionText; // Texto da descrição da opção
-	public Text highscoreText; // Texto da melhor pontuação daquele modo
-	public Text rankingText; // Texto do melhor ranking daquele modo
-
+	
 	public GameObject[] imagesHelp; // Onde as imagens de cada texto de ajuda ficarão
 
 	public AudioSource helpClick; // Som que toca quando o botão de ajuda é clicado
@@ -124,8 +122,5 @@ public class menuPrecisao : MonoBehaviour {
 				Jogador.setJogoAtual("PrecisaoBasket10");
 				break;
 		}
-
-		this.highscoreText.text = Jogador.getHighscores().melhorPontuacao().ToString();
-		this.rankingText.text = Jogador.gerarRanking(Jogador.getHighscores().melhorRanking());
 	}
 }

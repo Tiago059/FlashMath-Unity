@@ -10,7 +10,29 @@ namespace AssemblyCSharp {
 		private string resultado, expressao; // Strings representando o resultado da expressão e a própria expressão
 		
 		// Jogo e Dificuldade atual do jogador;
-		private string jogoAtual, dificAtual;
+		private static string jogoAtual, dificAtual;
+
+		public ExpressaoBasica (int qtdExpressoes) {
+		
+			jogoAtual = Jogador.getJogoAtual();
+			dificAtual = Jogador.getDificuldadeAtual();
+			
+			// Gerando a dificuldade, através da quantidade de expressões feitas pelo jogador
+			this.dificuldade = gerarDificuldade (qtdExpressoes);
+
+			// Gerando os números aleatórios, junto com o operador, inicialmente na forma inteira
+			int op = gerarNumeroAleatorio(1, this.dificuldade[2]);
+
+			// Gerando o resultado, já na forma de string
+			gerarResultado(op); 
+
+			// Gerando a string do operador
+			this.operador = gerarOperador(op);
+
+			// Gerando a string com a expressão COMPLETAÇA
+			this.expressao = this.numero1 + " " + this.operador + " " + this.numero2;
+
+		}
 
 		// Métodos privados 
 		private int gerarNumeroAleatorio(int intervalo1, int intervalo2){
@@ -170,7 +192,7 @@ namespace AssemblyCSharp {
 								dificuldade[1] = 10; 
 								dificuldade[2] = 2; 
 							} else if (qtdExpressoes >= 3 && qtdExpressoes < 10) {
-								dificuldade[0] = 0
+								dificuldade[0] = 0;
 								dificuldade[1] = 50;
 								dificuldade[2] = 2;
 							} else if (qtdExpressoes >= 10 && qtdExpressoes < 30) {
@@ -333,7 +355,7 @@ namespace AssemblyCSharp {
 								dificuldade[1] = 999;
 								dificuldade[2] = 1;
 							} else if (qtdExpressoes >= 3 && qtdExpressoes < 10) {
-								dificuldade[0] = 0
+								dificuldade[0] = 0;
 								dificuldade[1] = 10;
 								dificuldade[2] = 2;
 							} else if (qtdExpressoes >= 10 && qtdExpressoes < 30) {
@@ -427,7 +449,7 @@ namespace AssemblyCSharp {
 						/* A soma não pode haver agrupamento. */
 						case "Kids":
 							while (num2 >= 10){ num2 = gerarNumeroAleatorio(this.dificuldade[0], this.dificuldade[1]);  }
-							while ( (num1 < 10 && num2 < 10) && (num1 + num2 >= 10) ) { 
+							while ( ( (num1 < 10 && num2 < 10) && num1 + num2 >= 10) || (num1 + num2 >= 20) ) { 
 								num1 = gerarNumeroAleatorio(this.dificuldade[0], this.dificuldade[1]);
 							}
 							break;
@@ -461,12 +483,12 @@ namespace AssemblyCSharp {
 							break;
 						// Restrições: Dificuldade 4 - Challenger
 						/* As multiplicações não podem ser feitas por números menores que -15 e maiores que 15. */
-						case "Experient":
+						case "Challenger":
 							while ( num2 < -15 || num2 > 15 ){ num2 = gerarNumeroAleatorio(this.dificuldade[0], this.dificuldade[1]); }
 							break;
 					}
 					resultado = num1 * num2;
-					break
+					break;
 				// *** Caso 4: Divisão dos dois números *** //
 				case 4:
 					// Tratando da divisão, as restrições são globais, tanto para o Experient quanto para o Challenger
@@ -492,27 +514,7 @@ namespace AssemblyCSharp {
 		}
 
 		// Construtor
-		public ExpressaoBasica (int qtdExpressoes) {
 		
-			jogoAtual = Jogador.getJogoAtual();
-			dificAtual = Jogador.getDificuldadeAtual();
-			
-			// Gerando a dificuldade, através da quantidade de expressões feitas pelo jogador
-			this.dificuldade = gerarDificuldade (qtdExpressoes);
-
-			// Gerando os números aleatórios, junto com o operador, inicialmente na forma inteira
-			int op = gerarNumeroAleatorio(1, this.dificuldade[2]);
-
-			// Gerando o resultado, já na forma de string
-			gerarResultado(op); 
-
-			// Gerando a string do operador
-			this.operador = gerarOperador(op);
-
-			// Gerando a string com a expressão COMPLETAÇA
-			this.expressao = this.numero1 + " " + this.operador + " " + this.numero2;
-
-		}
 
 		// Getters (sim, nada de Setters)
 		public string Expressao { get { return this.expressao; } }

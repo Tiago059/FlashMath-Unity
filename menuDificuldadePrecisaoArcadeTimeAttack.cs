@@ -59,7 +59,6 @@ public class menuDificuldadePrecisaoArcadeTimeAttack : MonoBehaviour {
 	public void clickBtnExit(){ AnimationManager.Instance.startAnimationAndLoadScene("FadeIn", "menuPrecisao"); }
 
 	public void clickBtnPlay(){ 
-		
 		// Se o usuário selecionou uma dificuldade, podemos levá-lo para o jogo
 		if (optionIsSelected){
 			LoadingSceneManager.startLoadingScene(true);
@@ -71,7 +70,6 @@ public class menuDificuldadePrecisaoArcadeTimeAttack : MonoBehaviour {
 			this.imgPlaceHolder.SetActive(false);
 			this.imgWarning.SetActive(true);
 		}
-	
 	}
 	
 	// Essa função seta a dificuldade do jogador, seta o highscore e o melhor ranking daquela dificuldade e o texto descritivo
@@ -82,7 +80,7 @@ public class menuDificuldadePrecisaoArcadeTimeAttack : MonoBehaviour {
         btnColor.a = 1f; 
         btnPlay.GetComponent<Image>().color = btnColor;
 		
-		Debug.Log(button.GetComponent<Image>().color.a.ToString());
+		Debug.Log(btnPlay.GetComponent<Image>().color.a.ToString());
 
 		helpClick.Play(0); // Reproduz o efeito sonoro de clique
 		descriptionText.text = "Chosen: " + dificult; // Mostra o texto com a dificuldade selecionada

@@ -85,7 +85,7 @@
 			    case 3: return "C"; 
 			    case 2: return "B"; 
 			    case 1: return "A"; 
-			    case 0: return "S"; 
+			    //case 0: return "S"; 
 				default: return "X";
 			}
 		}

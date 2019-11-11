@@ -34,21 +34,18 @@ namespace AssemblyCSharp {
 		o melhor ranking referentes a cada dificuldade do modo. */
 	
 		// Dicionários onde serão guardadas as melhores pontuações do jogado de cada modo
-		private IDictionary<string, List<int>> highScorePrecisaoArcade;
-		private IDictionary<string, List<int>> highScorePrecisaoTimeAttack;
-		private IDictionary<string, List<int>> highScorePrecisaoBasket10;
+		private Dictionary<string, List<int>> highScorePrecisaoArcade;
+		private Dictionary<string, List<int>> highScorePrecisaoTimeAttack;
+		private Dictionary<string, List<int>> highScorePrecisaoBasket10;
 		
 		// Dicionários que associarão as dificuldades aos seus respectivos melhores rankings
-		private IDictionary<string, int> bestRanksPrecisaoArcade;
-		private IDictionary<string, int> bestRanksPrecisaoTimeAttack;
-		private IDictionary<string, int> bestRanksPrecisaoBasket10;
+		private Dictionary<string, int> bestRanksPrecisaoArcade;
+		private Dictionary<string, int> bestRanksPrecisaoTimeAttack;
+		private Dictionary<string, int> bestRanksPrecisaoBasket10;
 
 		// Número máximo de recordes que serão armazenados. 
 		private const int numMaxRecordes = 5;
 		
-		// Jogo e dificuldade atual do Jogador no momento da criação do objeto Highscores. 
-		private string jogoAtual, dificAtual;
-
 		public Highscores(){
 		
 			// --> Adicionando recordes para os novos modos de jogo, parte 2:
@@ -61,9 +58,6 @@ namespace AssemblyCSharp {
 			bestRanksPrecisaoArcade = new Dictionary<string, int>();
 			bestRanksPrecisaoTimeAttack = new Dictionary<string, int>();
 			bestRanksPrecisaoBasket10 = new Dictionary<string, int>();
-			
-			jogoAtual = Jogador.getJogoAtual();
-			dificAtual = Jogador.getDificuldadeAtual();
 
 		}
 
@@ -138,16 +132,17 @@ namespace AssemblyCSharp {
 		e atribuir a sua lista de recordes atual (passando a dificuldade escolhida que é a nossa chave) ao retorno
 		da chamada "ordenarRecordes" passando a sua própria lista de recordes e novoRecorde que a função vai 
 		ordenar automaticamente (se precisar). */
+
 		public void adicionarRecordes(int novoRecorde){
-			switch (jogoAtual){
+			switch (Jogador.getJogoAtual()){
 				case "precisaoArcade": 
-					highScorePrecisaoArcade[dificAtual] = ordenarRecordes(highScorePrecisaoArcade[dificAtual], novoRecorde);
+					highScorePrecisaoArcade[Jogador.getDificuldadeAtual()] = ordenarRecordes(highScorePrecisaoArcade[Jogador.getDificuldadeAtual()], novoRecorde);
 					break;
 				case "precisaoTimeAttack":
-					highScorePrecisaoTimeAttack[dificAtual] = ordenarRecordes(highScorePrecisaoTimeAttack[dificAtual], novoRecorde);
+					highScorePrecisaoTimeAttack[Jogador.getDificuldadeAtual()] = ordenarRecordes(highScorePrecisaoTimeAttack[Jogador.getDificuldadeAtual()], novoRecorde);
 					break;
 				case "PrecisaoBasket10":
-					highScorePrecisaoBasket10[dificAtual] = ordenarRecordes(highScorePrecisaoBasket10[dificAtual], novoRecorde);
+					highScorePrecisaoBasket10[Jogador.getDificuldadeAtual()] = ordenarRecordes(highScorePrecisaoBasket10[Jogador.getDificuldadeAtual()], novoRecorde);
 					break;
 			}
 		}
@@ -159,10 +154,10 @@ namespace AssemblyCSharp {
 		o nome do seu modo de jogo e retorne o maior valor da sua lista de recordes associada com a sua chave definida
 		pela dificuldade atual. */
 		public int melhorPontuacao(){
-			switch (jogoAtual){
-				case "precisaoArcade": return highScorePrecisaoArcade[dificAtual][0];    
-				case "precisaoTimeAttack": return highScorePrecisaoTimeAttack[dificAtual][0];
-				case "PrecisaoBasket10": return highScorePrecisaoBasket10[dificAtual][0];
+			switch (Jogador.getJogoAtual()){
+				case "precisaoArcade": return highScorePrecisaoArcade[Jogador.getDificuldadeAtual()][0];    
+				case "precisaoTimeAttack": return highScorePrecisaoTimeAttack[Jogador.getDificuldadeAtual()][0];
+				case "PrecisaoBasket10": return highScorePrecisaoBasket10[Jogador.getDificuldadeAtual()][0];
 				default: return 0;
 			}
 		}
@@ -171,10 +166,10 @@ namespace AssemblyCSharp {
 		/* Mais uma vez, apenas questão de retorno. Aqui retornamos o valor associado à chave da dificuldade
 		atual do jogador, que conterá seu melhor ranking naquele modo de jogo e dificuldade. */
 		public int melhorRanking(){
-			switch (jogoAtual){
-				case "precisaoArcade": return bestRanksPrecisaoArcade[dificAtual]; 
-				case "precisaoTimeAttack": return bestRanksPrecisaoTimeAttack[dificAtual];
-				case "PrecisaoBasket10": return bestRanksPrecisaoBasket10[dificAtual];
+			switch (Jogador.getJogoAtual()){
+				case "precisaoArcade": return bestRanksPrecisaoArcade[Jogador.getDificuldadeAtual()]; 
+				case "precisaoTimeAttack": return bestRanksPrecisaoTimeAttack[Jogador.getDificuldadeAtual()];
+				case "PrecisaoBasket10": return bestRanksPrecisaoBasket10[Jogador.getDificuldadeAtual()];
 				default: return 0;
 			}
 		}
@@ -183,21 +178,21 @@ namespace AssemblyCSharp {
 		/* Para finalizar, acrescente seu modo de jogo para que a função consiga checar se o novo ranking é
 		maior que o atual. */
 		public bool adicionarRanking(int novoRanking){
-			switch (jogoAtual){
+			switch (Jogador.getJogoAtual()){
 				case "precisaoArcade": 
-					if (novoRanking < bestRanksPrecisaoArcade[dificAtual]){ 
-						bestRanksPrecisaoArcade[dificAtual] = novoRanking;
+					if (novoRanking < bestRanksPrecisaoArcade[Jogador.getDificuldadeAtual()]){ 
+						bestRanksPrecisaoArcade[Jogador.getDificuldadeAtual()] = novoRanking;
 						return true; 
 					} 
 					else { return false; }
 				case "precisaoTimeAttack":
-					if (novoRanking < bestRanksPrecisaoTimeAttack[dificAtual]){ 
-						bestRanksPrecisaoTimeAttack[dificAtual] = novoRanking;
+					if (novoRanking < bestRanksPrecisaoTimeAttack[Jogador.getDificuldadeAtual()]){ 
+						bestRanksPrecisaoTimeAttack[Jogador.getDificuldadeAtual()] = novoRanking;
 						return true; 
 					} else { return false; }
 				case "PrecisaoBasket10":
-					if (novoRanking < bestRanksPrecisaoBasket10[dificAtual]){ 
-						this.bestRanksPrecisaoBasket10[dificAtual] = novoRanking;
+					if (novoRanking < bestRanksPrecisaoBasket10[Jogador.getDificuldadeAtual()]){ 
+						this.bestRanksPrecisaoBasket10[Jogador.getDificuldadeAtual()] = novoRanking;
 						return true; 
 					} else { return false; }
 				// --> Adicione aqui para novo recorde <--

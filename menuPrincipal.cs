@@ -26,6 +26,9 @@ public class menuPrincipal : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		
+		// Debug: esta linha serve pra deletar o highscore atual
+		// PlayerPrefs.DeleteKey("highscores");
+		
 		this.helpClick = GetComponent<AudioSource>();
 
 		BackgroudMusicManager.Instance.play();
@@ -37,7 +40,6 @@ public class menuPrincipal : MonoBehaviour {
 
 		// Se não houver uma chave contendo highscores, significa que um objeto do tipo highscore precisa ser criado
 		if (PlayerPrefs.HasKey("highscores")) {
-
 			try {
 
 				/* O processo é semelhante ao serializar, a diferença é que vamos deserializar, isto é, converter de volta
@@ -55,8 +57,7 @@ public class menuPrincipal : MonoBehaviour {
     		// Caso dê algum erro, já saberei porque
     		catch (FileLoadException e){ Debug.Log("Erro. Não foi possível abrir o arquivo. " + e.Message); }
 			catch (FileNotFoundException e) { Debug.Log("Erro. Arquivo não encontrado. " + e.Message); }
-			
-
+		
 		}
 		// No entanto, se essa chave já foi setada, precisamos recuperar o arquivo já salvo
 		else {
